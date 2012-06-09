@@ -1,6 +1,6 @@
 VERSION = git
 
-PREFIX = /usr
+PREFIX = /usr/local
 
 CC = cc
 CPPFLAGS = -DWORDLIST_DIR=\"$(PREFIX)/share/correcthorse\" -DVERSION=\"$(VERSION)\" -D_GNU_SOURCE
