@@ -1,4 +1,4 @@
-VERSION = git
+VERSION = 1.0
 
 PREFIX = /usr
 
