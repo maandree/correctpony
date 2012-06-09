@@ -5,10 +5,6 @@
 
 #include <stdlib.h>
 
-#ifndef WORDLIST_DIR
-#define WORDLIST_DIR "/usr/share/correcthorse/"
-#endif
-
 struct wlist
 {
     struct word *head;

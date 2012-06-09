@@ -15,6 +15,10 @@
 #define WLISTS_MAX 10
 #define WORDLIST_DEFAULT "english"
 
+#ifndef WORDLIST_DIR
+#define WORDLIST_DIR "/usr/share/correcthorse"
+#endif
+
 #define STR1(x) # x
 #define STR(x) STR1(x)
 

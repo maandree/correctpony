@@ -1,7 +1,5 @@
 include config.mk
 
-CPPFLAGS += -DVERSION=\"$(VERSION)\"
-
 SRCDIR = src
 OBJDIR = obj
 
@@ -15,7 +13,7 @@ $(OBJDIR) :
 
 $(OBJDIR)/%.o : $(SRCDIR)/%.c
 	@echo CC -c $<
-	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
+	@$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
 
 correcthorse : $(OBJ) $(OBJDIR)/correcthorse.o
 	@$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(LIBS)

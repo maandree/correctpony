@@ -116,7 +116,7 @@ struct wlist *wlist_read(const char *name)
         path = name;
     else
     {
-        snprintf(buf, sizeof buf, WORDLIST_DIR "%s", name);
+        snprintf(buf, sizeof buf, WORDLIST_DIR "/%s", name);
         path = buf;
     }
 
