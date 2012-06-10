@@ -12,7 +12,7 @@ arch=('i686' 'x86_64')
 url="https://github.com/rmartinjak/correcthorse"
 license=('WTFPL')
 source=(http://rmartinjak.de/$pkgname/$pkgname-$pkgver.tar.gz)
-md5sums=('ced15031d1b4024600fcefbc6331e75a')
+md5sums=('3d691f786f5879f5b902585472d6d195')
 
 
 build() {
