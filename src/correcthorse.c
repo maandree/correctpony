@@ -271,4 +271,9 @@ int main(int argc, char **argv)
 
         printf("\n");
     }
+    
+    for (i = 0; i< n_wlists; ++i)
+        wlist_free(wlists[i]);
+
+    return EXIT_SUCCESS;
 }
