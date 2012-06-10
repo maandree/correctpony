@@ -263,9 +263,10 @@ int main(int argc, char **argv)
 
         for (i = 0; i < n_words; ++i)
         {
-            printf("%s", words[out_idx[i]]);
-            if (sep != -1)
+            if (i && sep != -1)
                 printf("%c", sep);
+
+            printf("%s", words[out_idx[i]]);
         }
 
         printf("\n");
