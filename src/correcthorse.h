@@ -12,7 +12,7 @@
 
 #define UWORDS_MAX WORDS_MIN_DEFAULT
 
-#define WLISTS_MAX 10
+#define WLISTS_MAX 100
 #define WORDLIST_DEFAULT "english"
 
 #ifndef WORDLIST_DIR
