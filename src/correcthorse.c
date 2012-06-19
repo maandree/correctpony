@@ -64,6 +64,7 @@ static void print_usage(char *argv0)
     fprintf(stderr, "Available options: \n"
             "-h, --help             print this text and exit\n"
             "-v, --version          print version and exit\n"
+            "-j, --join             join all words\n"
             "-i, --include <word>   include <word> in passphrase\n"
             "-l, --wordlist <list>  use wordlist <list>.\n"
             "                       must be either absolute path or path relative to " WORDLIST_DIR ".\n"
@@ -78,6 +79,7 @@ static void print_usage(char *argv0)
     fprintf(stderr, "available options: \n"
             "-h         print this text and exit\n"
             "-v         print version and exit\n"
+            "-j         join all words\n"
             "-i <word>  include <word> in passphrase\n"
             "-l <list>  use wordlist <list>.\n"
             "           must be either absolute path or path relative to " WORDLIST_DIR ".\n"
@@ -125,7 +127,7 @@ int main(int argc, char **argv)
     size_t i_uwords = 0, n_uwords = 0;
 
     /* sep character between words, -1 -> none */
-    int sep = -1;
+    int sep = 32; // ' '
     int camel = 0;
 
     /* for strtoul */
@@ -142,12 +144,13 @@ int main(int argc, char **argv)
         { "sep",        required_argument, NULL, 's' },
         { "uppercase",  no_argument, NULL, 'u' },
         { "camelcase",  no_argument, NULL, 'u' },
+        { "join",       no_argument, NULL, 'j' },
         { "help",       no_argument, NULL, 'h' },
         { "version",    no_argument, NULL, 'v' },
     };
     while ((c = getopt_long(argc, argv, "hvi:l:c:w:s:u", long_opts, NULL)) != -1)
     #else
-    while ((c = getopt(argc, argv, "hvi:l:c:w:s:u")) != -1)
+    while ((c = getopt(argc, argv, "hvji:l:c:w:s:u")) != -1)
     #endif
     {
         switch (c)
@@ -164,6 +167,10 @@ int main(int argc, char **argv)
                 uwords[i_uwords] = optarg;
                 n_uwords = (n_uwords < UWORDS_MAX) ? n_uwords + 1 : UWORDS_MAX;
                 i_uwords = (i_uwords + 1) % UWORDS_MAX;
+                break;
+
+            case 'j':
+	        sep = -1;
                 break;
 
             case 'l':
