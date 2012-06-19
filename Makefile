@@ -25,6 +25,7 @@ install : all
 	@echo installing wordlists to ${DESTDIR}${PREFIX}/share/correcthorse
 	@install -d ${DESTDIR}${PREFIX}/share/correcthorse
 	@install -m 644 wordlists/* ${DESTDIR}${PREFIX}/share/correcthorse
+	@cat wordlists/* > ${DESTDIR}${PREFIX}/share/correcthorse/everything
 
 clean :
 	@echo cleaning
