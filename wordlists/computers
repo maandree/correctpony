@@ -42,10 +42,8 @@ memory
 menu
 modem
 mouse
-multi-hop
 multimedia
 network
-nic
 node
 numeric
 open
@@ -55,7 +53,6 @@ passive
 paste
 patchcable
 path
-peer-to-peer
 peripheral
 ping
 port
