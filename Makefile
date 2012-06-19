@@ -22,7 +22,7 @@ install : all
 	@echo installing executable file to ${DESTDIR}${PREFIX}/bin
 	@install -d ${DESTDIR}${PREFIX}/bin
 	@install -m 755 correcthorse ${DESTDIR}${PREFIX}/bin
-	@echo installing wordlists to page to ${DESTDIR}${PREFIX}/share/correcthorse
+	@echo installing wordlists to ${DESTDIR}${PREFIX}/share/correcthorse
 	@install -d ${DESTDIR}${PREFIX}/share/correcthorse
 	@install -m 644 wordlists/* ${DESTDIR}${PREFIX}/share/correcthorse
 
