@@ -68,9 +68,9 @@ static void print_usage(char *argv0)
             "-l, --wordlist <list>  use wordlist <list>.\n"
             "                       must be either absolute path or path relative to " WORDLIST_DIR ".\n"
             "                       max. " STR(WLISTS_MAX) " wordlists can be specified;\n"
-            "                       if omitted, the default wordlist " WORDLIST_DIR WORDLIST_DEFAULT " will be used.\n"
-            "-c, --char <n>         passphrase must be at least <n> characters long\n"
-            "-w, --words <n>        passphrase must consist of at least <n> words\n"
+            "                       if omitted, the default wordlist " WORDLIST_DIR "/" WORDLIST_DEFAULT " will be used.\n"
+            "-c, --char <n>         passphrase must be at least <n> characters long (default: " STR(CHARS_MIN_DEFAULT) ")\n"
+            "-w, --words <n>        passphrase must consist of at least <n> words (default: " STR(WORDS_MIN_DEFAULT) ")\n"
             "-s, --sep <char>       use <char> as separator between words\n"
             "-u, --camelcase        capitalize first letter of each word\n"
            );
@@ -83,8 +83,8 @@ static void print_usage(char *argv0)
             "           must be either absolute path or path relative to " WORDLIST_DIR ".\n"
             "           max. " STR(WLISTS_MAX) " wordlists can be specified;\n"
             "           if omitted, the default wordlist " WORDLIST_DIR "/" WORDLIST_DEFAULT " will be used.\n"
-            "-c <n>     passphrase must be at least <n> characters long\n"
-            "-w <n>     passphrase must consist of at least <n> words\n"
+            "-c <n>     passphrase must be at least <n> characters long (default: " STR(CHARS_MIN_DEFAULT) ")\n"
+            "-w <n>     passphrase must consist of at least <n> words (default: " STR(WORDS_MIN_DEFAULT) ")\n"
             "-s <char>  use <char> as separator between words\n"
             "-u         capitalize first letter of each word\n"
            );
