@@ -268,15 +268,20 @@ int main(int argc, char **argv)
 
         rand_perm(out_idx, n_words);
 
+        printf("\033[0;1m");
+	
         for (i = 0; i < n_words; ++i)
         {
             if (i && sep != -1)
                 printf("%c", sep);
 
-            printf("%s", words[out_idx[i]]);
+	    if (i & 1)
+	        printf("\033[34m%s", words[out_idx[i]]);
+	    else
+	        printf("\033[33m%s", words[out_idx[i]]);
         }
 
-        printf("\n");
+        printf("\033[0m\n");
     }
 
     for (i = 0; i < n_wlists; ++i)
