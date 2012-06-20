@@ -148,7 +148,7 @@ int main(int argc, char **argv)
         { "help",       no_argument, NULL, 'h' },
         { "version",    no_argument, NULL, 'v' },
     };
-    while ((c = getopt_long(argc, argv, "hvi:l:c:w:s:u", long_opts, NULL)) != -1)
+    while ((c = getopt_long(argc, argv, "hvji:l:c:w:s:u", long_opts, NULL)) != -1)
     #else
     while ((c = getopt(argc, argv, "hvji:l:c:w:s:u")) != -1)
     #endif
