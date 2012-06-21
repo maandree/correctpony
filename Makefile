@@ -19,14 +19,21 @@ correcthorse : $(OBJ) $(OBJDIR)/correcthorse.o
 	@$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(LIBS)
 
 install : all
-	@echo installing executable file to ${DESTDIR}${PREFIX}/bin
+	@echo installing executable files to ${DESTDIR}${PREFIX}/bin
 	@install -d ${DESTDIR}${PREFIX}/bin
 	@install -m 755 correcthorse{,-security} ${DESTDIR}${PREFIX}/bin
 	@echo installing wordlists to ${DESTDIR}${PREFIX}/share/correcthorse
 	@install -d ${DESTDIR}${PREFIX}/share/correcthorse
 	@install -m 644 wordlists/* ${DESTDIR}${PREFIX}/share/correcthorse
 	@cat wordlists/* | sort | uniq > ${DESTDIR}${PREFIX}/share/correcthorse/everything
-	@install -m 644 bash-completion /usr/share/bash-completion/completions/correcthorse || echo 'Could not install bash-completion script'
+	@echo installing bash-completion script
+	@install -m 644 bash-completion /usr/share/bash-completion/completions/correcthorse || echo 'Could not install bash-completion scrip'
+
+uninstall :
+	rm -rf ${DESTDIR}${PREFIX}/share/correcthorse
+	unlink ${DESTDIR}${PREFIX}/bin/correcthorse
+	unlink ${DESTDIR}${PREFIX}/bin/correcthorse-security
+	unlink /usr/share/bash-completion/completions/correcthorse
 
 clean :
 	@echo cleaning
