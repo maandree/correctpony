@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <time.h>
 #include <string.h>
 #include <ctype.h>
 
@@ -21,15 +20,15 @@ static void print_version(char *argv0);
 
 static size_t rand_index(size_t n)
 {
-    static int seed = 0;
-
-    if (!seed)
-    {
-        srand(time(NULL));
-        seed = 1;
-    }
-
-    return rand() % n;
+    FILE* file = fopen("/dev/urandom", "r");
+    
+    int value = 0, i;
+    for (i = 0; i < 4; i++)
+        value = (value << 8) | fgetc(file);
+    
+    fclose(file);
+    
+    return value % n;
 }
 
 static void rand_perm(size_t *dest, size_t n)
