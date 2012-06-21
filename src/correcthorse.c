@@ -96,7 +96,7 @@ static void print_usage(char *argv0)
 static void print_version(char *argv0)
 {
     printf("%s Version: " VERSION "\n", argv0);
-    printf("Copyright (C) 2012 Robin Martinjak\n");
+    printf("Copyright (C) 2012  Mattias Andrée\n");
     printf("License: WTFPL 2.0 http://sam.zoy.org/wtfpl/COPYING\n");
 }
 

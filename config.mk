@@ -1,4 +1,4 @@
-VERSION = git
+VERSION = alt-git
 
 PREFIX = /usr/local
 
