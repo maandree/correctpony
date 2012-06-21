@@ -26,6 +26,7 @@ install : all
 	@install -d ${DESTDIR}${PREFIX}/share/correcthorse
 	@install -m 644 wordlists/* ${DESTDIR}${PREFIX}/share/correcthorse
 	@cat wordlists/* | sort | uniq > ${DESTDIR}${PREFIX}/share/correcthorse/everything
+	@install -m 644 bash-completion /usr/share/bash-completion/completions/correcthorse || echo 'Could not install bash-completion script'
 
 clean :
 	@echo cleaning

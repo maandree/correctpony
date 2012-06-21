@@ -1,0 +1,12 @@
+# bash completion for correcthorse            -*- shell-script -*-
+
+_correcthorse()
+{
+    local cur prev words cword
+    _init_completion -n = || return
+    
+    COMPREPLY=( $( compgen -W '--version --help --join --camelcase --include --wordlist --char --words --sep' -- "$cur" ) )
+}
+
+
+complete -o default -F _correcthorse correcthorse
