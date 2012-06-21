@@ -5,7 +5,19 @@ _correcthorse()
     local cur prev words cword
     _init_completion -n = || return
     
-    COMPREPLY=( $( compgen -W '--version --help --join --camelcase --include --wordlist --char --words --sep' -- "$cur" ) )
+    if [[ $prev = '--sep' || $prev = '-s' ]]; then
+	COMPREPLY=()
+    elif [[ $prev = '--include' || $prev = '-i' ]]; then
+	COMPREPLY=()
+    elif [[ $prev = '--char' || $prev = '-c' ]]; then
+	COMPREPLY=()
+    elif [[ $prev = '--words' || $prev = '-w' ]]; then
+	COMPREPLY=()
+    elif [[ $prev = '--list' || $prev = '-l' ]]; then
+	COMPREPLY=( $( compgen -W "`ls /usr/local/share/correcthorse`" -- "$cur" ) )
+    else
+	COMPREPLY=( $( compgen -W '--version --help --join --camelcase --include --list --char --words --sep' -- "$cur" ) )
+    fi
 }
 
 
