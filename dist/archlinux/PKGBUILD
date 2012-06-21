@@ -6,19 +6,20 @@
 # See http://wiki.archlinux.org/index.php/VCS_PKGBUILD_Guidelines
 # for more information on packaging from GIT sources.
 
-# Maintainer: Robin Martinjak <rob@rmartinjak.de>
-pkgname=correcthorse-git
-pkgver=20120609
+# Maintainer: Mattias Andrée <maandree@operamail.com>
+pkgname=correcthorse-alt-git
+pkgver=20120621
 pkgrel=1
 pkgdesc="Passphrase generator based on http://xkcd.com/936/"
 arch=('i686' 'x86_64')
-url="https://github.com/rmartinjak/correcthorse"
+url="https://github.com/maandree/correcthorse"
 license=('WTFPL')
 makedepends=('git')
-provides=('correcthorse')
-conflicts=('correcthorse')
+optdepends=('bc: for using the correcthorse-security script')
+provides=('correcthorse' 'correcthorse-alt')
+conflicts=('correcthorse' 'correcthorse-alt')
 
-_gitroot=https://github.com/rmartinjak/correcthorse.git
+_gitroot=https://github.com/maandree/correcthorse.git
 _gitname=correcthorse
 
 build() {
@@ -47,5 +48,3 @@ package() {
   cd "$srcdir/$_gitname-build"
   make DESTDIR="$pkgdir/" PREFIX=/usr install
 }
-
-# vim:set ts=2 sw=2 et:
