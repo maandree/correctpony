@@ -73,6 +73,7 @@ static void print_usage(char *argv0)
     fprintf(stderr, "Available options: \n"
             "-h, --help             print this text and exit\n"
             "-v, --version          print version and exit\n"
+	    "-p, --nocolour         do not colour the words in the passphrase\n"
             "-j, --join             join all words\n"
             "-i, --include <word>   include <word> in passphrase\n"
             "-l, --list <list>      use wordlist <list>.\n"
@@ -88,6 +89,7 @@ static void print_usage(char *argv0)
     fprintf(stderr, "available options: \n"
             "-h         print this text and exit\n"
             "-v         print version and exit\n"
+	    "-p         do not colour the words in the passphrase\n"
             "-j         join all words\n"
             "-i <word>  include <word> in passphrase\n"
             "-l <list>  use wordlist <list>.\n"
@@ -141,25 +143,43 @@ int main(int argc, char **argv)
 
     /* for strtoul */
     char *endptr;
+    
+    /* colour each word */
+    int colour = 1;
 
     /* arguments */
 
     #ifdef _GNU_SOURCE
     struct option long_opts[] = {
-        { "include",    required_argument, NULL, 'i' },
-        { "list",       required_argument, NULL, 'l' },
-        { "chars",      required_argument, NULL, 'c' },
-        { "words",      required_argument, NULL, 'w' },
-        { "sep",        required_argument, NULL, 's' },
-        { "uppercase",  no_argument, NULL, 'u' },
-        { "camelcase",  no_argument, NULL, 'u' },
-        { "join",       no_argument, NULL, 'j' },
-        { "help",       no_argument, NULL, 'h' },
-        { "version",    no_argument, NULL, 'v' },
+        { "include",     required_argument, NULL, 'i' },
+        { "list",        required_argument, NULL, 'l' },
+        { "wordlist",    required_argument, NULL, 'l' },
+        { "word-list",   required_argument, NULL, 'l' },
+        { "chars",       required_argument, NULL, 'c' },
+        { "words",       required_argument, NULL, 'w' },
+        { "word",        required_argument, NULL, 'w' },
+        { "sep",         required_argument, NULL, 's' },
+        { "separator",   required_argument, NULL, 's' },
+        { "uppercase",   no_argument, NULL, 'u' },
+        { "camelcase",   no_argument, NULL, 'u' },
+        { "upper-case",  no_argument, NULL, 'u' },
+        { "camel-case",  no_argument, NULL, 'u' },
+        { "join",        no_argument, NULL, 'j' },
+        { "help",        no_argument, NULL, 'h' },
+        { "version",     no_argument, NULL, 'v' },
+        { "nocolour",    no_argument, NULL, 'p' },
+        { "nocolor",     no_argument, NULL, 'p' },
+        { "no-colour",   no_argument, NULL, 'p' },
+        { "no-color",    no_argument, NULL, 'p' },
+        { "nocolours",   no_argument, NULL, 'p' },
+        { "nocolors",    no_argument, NULL, 'p' },
+        { "no-colours",  no_argument, NULL, 'p' },
+        { "no-colors",   no_argument, NULL, 'p' },
+        { "pipe",        no_argument, NULL, 'p' },
     };
-    while ((c = getopt_long(argc, argv, "hvji:l:c:w:s:u", long_opts, NULL)) != -1)
+    while ((c = getopt_long(argc, argv, "hvjpi:l:c:w:s:u", long_opts, NULL)) != -1)
     #else
-    while ((c = getopt(argc, argv, "hvji:l:c:w:s:u")) != -1)
+    while ((c = getopt(argc, argv, "hvjpi:l:c:w:s:u")) != -1)
     #endif
     {
         switch (c)
@@ -172,14 +192,18 @@ int main(int argc, char **argv)
                 print_version(argv[0]);
                 exit(EXIT_SUCCESS);
 
+            case 'j':
+	        sep = -1;
+                break;
+
+            case 'p':
+	        colour = 0;
+                break;
+
             case 'i':
                 uwords[i_uwords] = optarg;
                 n_uwords = (n_uwords < UWORDS_MAX) ? n_uwords + 1 : UWORDS_MAX;
                 i_uwords = (i_uwords + 1) % UWORDS_MAX;
-                break;
-
-            case 'j':
-	        sep = -1;
                 break;
 
             case 'l':
@@ -277,20 +301,24 @@ int main(int argc, char **argv)
 
         rand_perm(out_idx, n_words);
 
-        printf("\033[0;1m");
+	if (colour)
+	  printf("\033[0;1m");
 	
         for (i = 0; i < n_words; ++i)
         {
             if (i && sep != -1)
                 printf("%c", sep);
-
-	    if (i & 1)
+	    
+	    if (!colour)
+	        printf("%s", words[out_idx[i]]);
+	    else if (i & 1)
 	        printf("\033[34m%s", words[out_idx[i]]);
 	    else
 	        printf("\033[33m%s", words[out_idx[i]]);
         }
 
-        printf("\033[0m\n");
+	if (colour)
+	  printf("\033[0m\n");
     }
 
     for (i = 0; i < n_wlists; ++i)

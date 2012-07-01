@@ -16,7 +16,7 @@ _correcthorse()
     elif [[ $prev = '--list' || $prev = '-l' ]]; then
 	COMPREPLY=( $( compgen -W "`ls /usr/{local/,}share/correcthorse 2>/dev/null`" -- "$cur" ) )
     else
-	COMPREPLY=( $( compgen -W '--version --help --join --camelcase --include --list --char --words --sep' -- "$cur" ) )
+	COMPREPLY=( $( compgen -W '--version --help --join --camelcase --include --list --char --words --sep --nocolour' -- "$cur" ) )
     fi
 }
 
