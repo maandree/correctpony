@@ -302,7 +302,7 @@ int main(int argc, char **argv)
         rand_perm(out_idx, n_words);
 
 	if (colour)
-	  printf("\033[0;1m");
+	    printf("\033[0;1m");
 	
         for (i = 0; i < n_words; ++i)
         {
@@ -318,7 +318,9 @@ int main(int argc, char **argv)
         }
 
 	if (colour)
-	  printf("\033[0m\n");
+	    printf("\033[0m\n");
+	else
+	    printf("\n");
     }
 
     for (i = 0; i < n_wlists; ++i)
