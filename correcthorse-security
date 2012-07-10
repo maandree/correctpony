@@ -12,6 +12,6 @@ cat /usr/{local/,}share/correcthorse/* 2>/dev/null | sort | uniq | wc -l | echo 
 
 echo
 
-(echo $(cat /usr/{local/,}share/correcthorse/* 2>/dev/null | sort | uniq | wc -l) ' ^ 5 * 10 / 60 / 60 / 24 / 365.2425 / 1000' | bc) | echo -e "If you select at random select any of (-j | -s ' ' | -s . | -s , |\\n-s : | -s ; | -s _ | -s - | -s ! | -s +) to you correcthorse options\\nand use -w 5 it would take about $(cat /dev/stdin) years to crack a passphrasing\\nin the first described manner."
+(echo $(cat /usr/{local/,}share/correcthorse/* 2>/dev/null | sort | uniq | wc -l) ' ^ 5 * 11 / 60 / 60 / 24 / 365.2425 / 1000' | bc) | echo -e "If you select at random select any of (-j | -s ' ' | -s . | -s , |\\n-s : | -s ; | -s _ | -s - | -s ! | -s + | -s %) to you correcthorse options\\nand use -w 5 it would take about $(cat /dev/stdin) years to crack a passphrasing\\nin the first described manner."
 
 echo
