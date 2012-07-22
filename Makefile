@@ -20,14 +20,14 @@ correcthorse : $(OBJ) $(OBJDIR)/correcthorse.o
 
 install : all
 	@echo installing executable files to ${DESTDIR}${PREFIX}/bin
-	@install -d ${DESTDIR}${PREFIX}/bin
-	@install -m 755 correcthorse{,-security} ${DESTDIR}${PREFIX}/bin
+	install -d ${DESTDIR}${PREFIX}/bin
+	install -m 755 correcthorse{,-security} ${DESTDIR}${PREFIX}/bin
 	@echo installing wordlists to ${DESTDIR}${PREFIX}/share/correcthorse
-	@install -d ${DESTDIR}${PREFIX}/share/correcthorse
-	@install -m 644 wordlists/* ${DESTDIR}${PREFIX}/share/correcthorse
-	@cat wordlists/* | sort | uniq > ${DESTDIR}${PREFIX}/share/correcthorse/everything
+	install -d ${DESTDIR}${PREFIX}/share/correcthorse
+	install -m 644 wordlists/* ${DESTDIR}${PREFIX}/share/correcthorse
+	cat wordlists/* | sort | uniq > ${DESTDIR}${PREFIX}/share/correcthorse/everything
 	@echo installing bash-completion script
-	@install -m 644 bash-completion /usr/share/bash-completion/completions/correcthorse || echo 'Could not install bash-completion scrip'
+	install -m 644 bash-completion /usr/share/bash-completion/completions/correcthorse || echo 'Could not install bash-completion script'
 
 uninstall :
 	rm -rf ${DESTDIR}${PREFIX}/share/correcthorse
