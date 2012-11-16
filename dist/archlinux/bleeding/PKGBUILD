@@ -1,26 +1,18 @@
-# This is an example PKGBUILD file. Use this as a start to creating your own,
-# and remove these comments. For more information, see 'man PKGBUILD'.
-# NOTE: Please fill out the license field for your package! If it is unknown,
-# then please put 'unknown'.
-
-# See http://wiki.archlinux.org/index.php/VCS_PKGBUILD_Guidelines
-# for more information on packaging from GIT sources.
-
 # Maintainer: Mattias Andrée <maandree@operamail.com>
-pkgname=correcthorse-alt-git
-pkgver=20120722
+pkgname=correctpony-git
+pkgver=20121116
 pkgrel=1
 pkgdesc="Passphrase generator based on http://xkcd.com/936/"
 arch=('i686' 'x86_64')
-url="https://github.com/maandree/correcthorse"
+url="https://github.com/maandree/correctpony"
 license=('WTFPL')
 makedepends=('git')
-optdepends=('bc: for using the correcthorse-security script' 'coreutils: for using the correcthorse-security script')
-provides=('correcthorse' 'correcthorse-alt')
-conflicts=('correcthorse' 'correcthorse-alt')
+optdepends=('bc: for using the correctpony-security script' 'coreutils: for using the correctpony-security script')
+provides=('correctpony')
+conflicts=('correctpony')
 
-_gitroot=https://github.com/maandree/correcthorse.git
-_gitname=correcthorse
+_gitroot=https://github.com/maandree/correctpony.git
+_gitname=correctpony
 
 build() {
   cd "$srcdir"

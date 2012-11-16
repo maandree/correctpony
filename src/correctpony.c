@@ -1,5 +1,5 @@
 /**
- * correcthorse - a passphrase generator inspired by http://xkcd.com/936/
+ * correctpony - a passphrase generator inspired by http://xkcd.com/936/
  * Copyright (c) 2012  Mattias Andrée (maandree@kth.se)
  *
  * This program is free software. It comes without any warranty, to
@@ -8,7 +8,7 @@
  * To Public License, Version 2, as published by Sam Hocevar. See
  * http://sam.zoy.org/wtfpl/COPYING for more details.
  */
-#include "correcthorse.h"
+#include "correctpony.h"
 
 #include <stdio.h>
 #include <stdlib.h>

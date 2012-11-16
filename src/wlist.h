@@ -1,5 +1,5 @@
 /**
- * correcthorse - a passphrase generator inspired by http://xkcd.com/936/
+ * correctpony - a passphrase generator inspired by http://xkcd.com/936/
  * Copyright (c) 2012  Mattias Andrée (maandree@kth.se)
  *
  * This program is free software. It comes without any warranty, to

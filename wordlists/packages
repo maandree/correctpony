@@ -168,6 +168,8 @@ convertlit
 coreutils
 correcthorse-git
 correcthorse-alt-git
+correctpony
+correctpony-git
 cowsay
 cpufrequtils
 cracklib
