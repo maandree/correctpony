@@ -9,15 +9,15 @@ license=('WTFPL')
 optdepends=('bc: for using the correctpony-security script' 'coreutils: for using the correctpony-security script')
 provides=('correctpony')
 conflicts=('correctpony')
-source=(https://github.com/maandree/correctpony/tarball/v1.1)
+source=(https://github.com/maandree/correctpony/tarball/v1.2)
 md5sums=(57189fc5f945822f1110570522d289b2)
 
 build() {
-  cd maandree-correctpony-3ef1073
+  cd maandree-correctpony-*
   make -B PREFIX=/usr
 }
 
 package() {
-  cd maandree-correctpony-3ef1073
+  cd maandree-correctpony-*
   make DESTDIR="$pkgdir/" PREFIX=/usr install
 }
