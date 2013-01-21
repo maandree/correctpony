@@ -54,8 +54,11 @@ passwords that are hard for ponies to remember, but easy for robots to guess.
 
 
 @menu
-* Overview::  Overview of correctpony
-* Invoking::  Running of correctpony
+* Overview::                          Overview of correctpony
+* Invoking::                          Running of correctpony
+* License of correctpony::            The license of correctpony
+* GNU Free Documentation License::    GNU Free Documentation License
+* Concept index::                     Concept index
 @end menu
 
 
