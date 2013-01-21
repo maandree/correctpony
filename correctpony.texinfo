@@ -142,7 +142,11 @@ Capitalise first letter of each word.
 
 @end table
 
-
+In addition to @command{correctpony}, you have the command
+@command{correctpony-security}. It is a simple shell script
+that some security information about using @command{correctpony}
+bases on your wordlists and some practices.
+@command{correctpony-security} ignores stdin and arguments.
 
 
 
