@@ -10,9 +10,9 @@
 @c %**end of header
 
 
-@defindex op
-@synindex op vr
-@synindex cp pg
+@c @defindex op
+@c @synindex op vr
+@c @synindex cp pg
 
 
 @copying
