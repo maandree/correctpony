@@ -1,7 +1,7 @@
 /**
  * correctpony - a passphrase generator inspired by http://xkcd.com/936/
- * Copyright (c) 2012  Mattias Andrée (maandree@kth.se)
- *
+ * Copyright (C) 2012, 2013  Mattias Andrée (maandree@member.fsf.org)
+ * 
  * This program is free software. It comes without any warranty, to
  * the extent permitted by applicable law. You can redistribute it
  * and/or modify it under the terms of the Do What The Fuck You Want
