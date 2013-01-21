@@ -84,6 +84,9 @@ are paranoid do one or two simple modifications to the generated phrase.
 @cindex running
 @cindex count, passphrases
 @cindex passphrases, count
+@cindex security
+@cindex statistics
+@cindex @command{correctpony-security}
 
 The format for running the @command{correctpony} program is:
 
