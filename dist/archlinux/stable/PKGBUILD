@@ -1,7 +1,7 @@
 # Maintainer: Mattias Andrée <`base64 -d`(bWFhbmRyZWUK)@member.fsf.org>
 pkgname=correctpony
 pkgver=1.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Passphrase generator based on http://xkcd.com/936/"
 arch=('i686' 'x86_64')
 url="https://github.com/maandree/$pkgname"
@@ -10,7 +10,7 @@ optdepends=('bc: for using the correctpony-security script')
 provides=('correctpony')
 conflicts=('correctpony')
 source=($url/tarball/v$pkgver)
-md5sums=(4664d1c6d372484a51d6158c10d27855)
+md5sums=(8b1300258a231d1fe5e319cfbddc7711)
 
 build() {
   cd maandree-${pkgname}-*
