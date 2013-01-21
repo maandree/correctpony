@@ -81,9 +81,9 @@ static void print_usage(char* argv0)
                     "                       max. " STR(WLISTS_MAX) " wordlists can be specified;\n"
 	            "                       if omitted, the default wordlist " WORDLIST_DIR "/" WORDLIST_DEFAULT " will be used.\n");
     fprintf(stderr, "-c, --char <n>         passphrase must be at least <n> characters long (default: " STR(CHARS_MIN_DEFAULT) ")\n"
-                    "-w, --words <n>        passphrase must consist of at least <n> words (default: " STR(WORDS_MIN_DEFAULT) ")\n"
+                    "-w, --words <n>        passphrase must consist of <n> words (default: " STR(WORDS_MIN_DEFAULT) ")\n"
                     "-s, --sep <char>       use <char> as separator between words\n"
-                    "-u, --camelcase        capitalize first letter of each word\n"
+                    "-u, --camelcase        capitalise first letter of each word\n"
            );
   #else
     fprintf(stderr, "available options: \n"

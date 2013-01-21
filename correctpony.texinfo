@@ -75,6 +75,76 @@ and make sure no close pairs is a common combination in read text. And if you
 are paranoid do one or two simple modifications to the generated phrase.
 
 
+@node Invoking
+@chapter Invoking
+@cindex invoking
+@cindex arguments
+@cindex options
+@cindex executing
+@cindex running
+@cindex count, passphrases
+@cindex passphrases, count
+
+The format for running the @command{correctpony} program is:
+
+@example
+@command{correctpony} [@var{option}...] [@var{count}]
+@end example
+
+The default value for @var{count} is 1, this values indicates
+how many passphrases are generates, each on a separate line.
+
+@command{correctpony} recognises the following options.
+
+@table @option
+@item -h
+@itemx --help
+Print this help table and exit.
+
+@item -v
+@itemx --version
+Print version and exit.
+
+@item -p
+@itemx --nocolour
+Do not colour the words in the passphrase output.
+
+@item -j
+@itemx --join
+Join all words.
+
+@item -i
+@itemx --include @emph{word}
+Include @emph{word} in passphrase.
+
+@item -l
+@itemx --list @emph{list}
+Wse wordlist @emph{list}. Must be either absolute path or path
+relative to /usr/share/correctpony (with default installation settings).
+Max 100 wordlists can be specified; if omitted, the default wordlist
+@file{english} will be used.
+
+@item -c
+@itemx --char @emph{n=12}
+The passphrase must be at least @emph{n} characters long.
+
+@item -w
+@itemx --words @emph{n=4}
+The passphrase must consist of @emph{n} words.
+
+@item -s
+@itemx --sep @emph{char=' '}
+Use @emph{char} as separator between words.
+
+@item -u
+@itemx --camelcase
+Capitalise first letter of each word.
+
+@end table
+
+
+
+
 
 @node License of correctpony
 @appendix License of correctpony
