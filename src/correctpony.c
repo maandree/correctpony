@@ -1,6 +1,6 @@
 /**
  * correctpony - a passphrase generator inspired by http://xkcd.com/936/
- * Copyright (c) 2012, 2013  Mattias Andrée (maandree@member.fsf.org)
+ * Copyright (C) 2012, 2013  Mattias Andrée (maandree@member.fsf.org)
  *
  * This program is free software. It comes without any warranty, to
  * the extent permitted by applicable law. You can redistribute it
