@@ -29,6 +29,9 @@ install : all
 	@echo installing bash-completion script
 	mkdir -p ${DESTDIR}${PREFIX}${DATA}/bash-completion/completions
 	install -m 644 bash-completion ${DESTDIR}${PREFIX}${DATA}/bash-completion/completions/correctpony
+	@echo installing license files script
+	mkdir -p ${DESTDIR}${PREFIX}${DATA}/licenses/correctpony
+	install -m 644 COPYING ${DESTDIR}${PREFIX}${DATA}/licenses/correctpony
 
 uninstall :
 	rm -rf ${DESTDIR}${PREFIX}${DATA}/correctpony
