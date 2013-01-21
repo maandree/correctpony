@@ -53,6 +53,26 @@ passwords that are hard for ponies to remember, but easy for robots to guess.
 @contents
 
 
+@menu
+* Overview::  Overview of correctpony
+* Invoking::  Running of correctpony
+@end menu
+
+
+
+@node Overview
+@chapter Overview
+@cindex overview
+@cindex description
+
+correctpony is a passphrase generator based on @url{http://xkcd.com/936/} and
+@url{http://www.baekdal.com/insights/password-security-usability}.
+
+correctpony generates a phrase with real words, making it easy to remember
+but hard to brute force. But the strenghten your security you may want to
+do an entroy check on the phrase, it should be enought to just read the phrase
+and make sure no close pairs is a common combination in read text. And if you
+are paranoid do one or two simple modifications to the generated phrase.
 
 
 
