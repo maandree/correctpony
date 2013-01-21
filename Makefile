@@ -60,7 +60,7 @@ install : all
 	@echo -e '\e[01m'installing executable files to "$(DESTDIR)$(PREFIX)$(BIN)"'\e[00m'
 	mkdir -p "$(DESTDIR)$(PREFIX)$(BIN)"
 	install -m 755 correctpony{,-security} "$(DESTDIR)$(PREFIX)$(BIN)"
-	sed -i s/"\/usr\/share\/"/"$$(echo "$(PREFIX)$(DATA)" | sed -e 's/\//\\\//g')"/g "$(DESTDIR)$(PREFIX)$(BIN)/correctpony-security"
+	sed -i s/"\/usr\/share\/"/"$$(echo "$(PREFIX)$(DATA)/" | sed -e 's/\//\\\//g')"/g "$(DESTDIR)$(PREFIX)$(BIN)/correctpony-security"
 	@echo -e '\e[01m'installing wordlists to "$(DESTDIR)$(PREFIX)$(DATA)/correctpony"'\e[00m'
 	mkdir -p "$(DESTDIR)$(PREFIX)$(DATA)/correctpony"
 	install -m 644 wordlists/* "$(DESTDIR)$(PREFIX)$(DATA)/correctpony"
