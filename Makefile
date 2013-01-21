@@ -30,7 +30,7 @@ install : all
 	@echo -e '\e[01m'installing bash-completion script'\e[00m'
 	mkdir -p "$(DESTDIR)$(PREFIX)$(DATA)/bash-completion/completions"
 	install -m 644 bash-completion "$(DESTDIR)$(PREFIX)$(DATA)/bash-completion/completions/correctpony"
-	@echo -e '\e[01m'installing license files script'\e[00m'
+	@echo -e '\e[01m'installing license files'\e[00m'
 	mkdir -p "$(DESTDIR)$(PREFIX)$(DATA)/licenses/correctpony"
 	install -m 644 COPYING "$(DESTDIR)$(PREFIX)$(DATA)/licenses/correctpony"
 
