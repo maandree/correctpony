@@ -19,25 +19,26 @@ correctpony : $(OBJ) $(OBJDIR)/correctpony.o
 	@$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(LIBS)
 
 install : all
-	@echo installing executable files to ${DESTDIR}${PREFIX}/bin
-	mkdir -p ${DESTDIR}${PREFIX}/bin
-	install -m 755 correctpony{,-security} ${DESTDIR}${PREFIX}/bin
-	@echo installing wordlists to ${DESTDIR}${PREFIX}/share/correctpony
-	mkdir -p ${DESTDIR}${PREFIX}/share/correctpony
-	install -m 644 wordlists/* ${DESTDIR}${PREFIX}/share/correctpony
-	cat wordlists/* | sort | uniq > ${DESTDIR}${PREFIX}/share/correctpony/everything
+	@echo installing executable files to ${DESTDIR}${PREFIX}${BIN}
+	mkdir -p ${DESTDIR}${PREFIX}${BIN}
+	install -m 755 correctpony{,-security} ${DESTDIR}${PREFIX}$(BIN}
+	@echo installing wordlists to ${DESTDIR}${PREFIX}${DATA}/correctpony
+	mkdir -p ${DESTDIR}${PREFIX}${DATA}/correctpony
+	install -m 644 wordlists/* ${DESTDIR}${PREFIX}${DATA}/correctpony
+	cat wordlists/* | sort | uniq > ${DESTDIR}${PREFIX}${DATA}/correctpony/everything
 	@echo installing bash-completion script
-	mkdir -p /usr/share/bash-completion/completions
-	install -m 644 bash-completion /usr/share/bash-completion/completions/correctpony
+	mkdir -p ${DESTDIR}${PREFIX}${DATA}/bash-completion/completions
+	install -m 644 bash-completion ${DESTDIR}${PREFIX}${DATA}/bash-completion/completions/correctpony
 
 uninstall :
-	rm -rf ${DESTDIR}${PREFIX}/share/correctpony
-	unlink ${DESTDIR}${PREFIX}/bin/correctpony
-	unlink ${DESTDIR}${PREFIX}/bin/correctpony-security
-	unlink /usr/share/bash-completion/completions/correctpony
+	rm -rf ${DESTDIR}${PREFIX}${DATA}/correctpony
+	unlink ${DESTDIR}${PREFIX}${BIN}/correctpony
+	unlink ${DESTDIR}${PREFIX}${BIN}/correctpony-security
+	unlink ${DESTDIR}${PREFIX}${DATA}/bash-completion/completions/correctpony
 
 clean :
 	@echo cleaning
 	@rm -rf $(OBJDIR)
 
 .PHONY: clean install
+
