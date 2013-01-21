@@ -1,6 +1,6 @@
 /**
  * correctpony - a passphrase generator inspired by http://xkcd.com/936/
- * Copyright (c) 2012  Mattias Andrée (maandree@kth.se)
+ * Copyright (c) 2012, 2013  Mattias Andrée (maandree@member.fsf.org)
  *
  * This program is free software. It comes without any warranty, to
  * the extent permitted by applicable law. You can redistribute it
@@ -71,19 +71,19 @@ static void print_usage(char *argv0)
 
     #ifdef _GNU_SOURCE
     fprintf(stderr, "Available options: \n"
-            "-h, --help             print this text and exit\n"
-            "-v, --version          print version and exit\n"
-	    "-p, --nocolour         do not colour the words in the passphrase\n"
-            "-j, --join             join all words\n"
-            "-i, --include <word>   include <word> in passphrase\n"
-            "-l, --list <list>      use wordlist <list>.\n"
-            "                       must be either absolute path or path relative to " WORDLIST_DIR ".\n"
-            "                       max. " STR(WLISTS_MAX) " wordlists can be specified;\n"
-            "                       if omitted, the default wordlist " WORDLIST_DIR "/" WORDLIST_DEFAULT " will be used.\n"
-            "-c, --char <n>         passphrase must be at least <n> characters long (default: " STR(CHARS_MIN_DEFAULT) ")\n"
-            "-w, --words <n>        passphrase must consist of at least <n> words (default: " STR(WORDS_MIN_DEFAULT) ")\n"
-            "-s, --sep <char>       use <char> as separator between words\n"
-            "-u, --camelcase        capitalize first letter of each word\n"
+                    "-h, --help             print this text and exit\n"
+                    "-v, --version          print version and exit\n"
+	            "-p, --nocolour         do not colour the words in the passphrase\n"
+                    "-j, --join             join all words\n"
+                    "-i, --include <word>   include <word> in passphrase\n"
+                    "-l, --list <list>      use wordlist <list>.\n");
+    fprintf(stderr, "                       must be either absolute path or path relative to " WORDLIST_DIR ".\n"
+                    "                       max. " STR(WLISTS_MAX) " wordlists can be specified;\n"
+	            "                       if omitted, the default wordlist " WORDLIST_DIR "/" WORDLIST_DEFAULT " will be used.\n");
+    fprintf(stderr, "-c, --char <n>         passphrase must be at least <n> characters long (default: " STR(CHARS_MIN_DEFAULT) ")\n"
+                    "-w, --words <n>        passphrase must consist of at least <n> words (default: " STR(WORDS_MIN_DEFAULT) ")\n"
+                    "-s, --sep <char>       use <char> as separator between words\n"
+                    "-u, --camelcase        capitalize first letter of each word\n"
            );
     #else
     fprintf(stderr, "available options: \n"
@@ -105,14 +105,14 @@ static void print_usage(char *argv0)
     #endif
 }
 
-static void print_version(char *argv0)
+static void print_version(char* argv0)
 {
     printf("%s Version: " VERSION "\n", argv0);
-    printf("Copyright (C) 2012  Mattias Andrée\n");
+    printf("Copyright (C) 2012, 2013  Mattias Andrée (maandree@member.fsf.org)\n");
     printf("License: WTFPL 2.0 http://sam.zoy.org/wtfpl/COPYING\n");
 }
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     int c;
     size_t i;
@@ -138,7 +138,7 @@ int main(int argc, char **argv)
     size_t i_uwords = 0, n_uwords = 0;
 
     /* sep character between words, -1 -> none */
-    int sep = 32; // ' '
+    int sep = 32; /* ' ' */
     int camel = 0;
 
     /* for strtoul */
