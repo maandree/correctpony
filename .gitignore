@@ -1,2 +1,10 @@
+_/
 correctpony
 correcthorse
+/obj/
+/bin/
+*.gz
+*.xz
+*~
+/dist/*/*/*
+!/dist/*/*/PKGBUILD
