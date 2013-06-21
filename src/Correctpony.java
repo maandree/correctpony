@@ -233,5 +233,9 @@ public class Correctpony
     }
     
     
+    /* TODO determine hyphenation for words to determine which letters may be uppercase */
+    /* TODO occationally use letter translation */
+    
+    
 }
 
