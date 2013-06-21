@@ -72,11 +72,13 @@ public class Correctpony
 	    if (fdir.exists())
 		fdir = fdir.getCanonicalFile();
 	    if (fdir.exists() && dir.isDirectory())
-		for (final String file : fdir.list())
+		for (String file : fdir.list())
 		{
 		    if (rcptr == rcbuf)
 			System.arraycopy(rc, 0, rc = new String[rcbuf <<= 1], 0, rcptr);
-		    rc[rcptr++] = (dir + "/" + file).replace("//", "/");
+		    file = (dir + "/" + file).replace("//", "/");
+		    if ((new File(file)).isFile())
+			rc[rcptr++] = file;
 		}
 	}
 	
