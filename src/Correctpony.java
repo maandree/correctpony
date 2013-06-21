@@ -68,12 +68,16 @@ public class Correctpony
 	{
 	    if (dir.startsWith("~"))
 		dir = HOME + dir.substring(1);
-	    for (final String file : (new File(dir)).list())
-	    {
-		if (rcptr == rcbuf)
-		    System.arraycopy(rc, 0, rc = new String[rcbuf <<= 1], 0, rcptr);
-		rc[rcptr++] = (dir + "/" + file).replace("//", "/");
-	    }
+	    File fdir = new File(dir);
+	    if (fdir.exists())
+		fdir = fdir.getCanonicalFile();
+	    if (fdir.exists() && dir.isDirectory())
+		for (final String file : fdir.list())
+		{
+		    if (rcptr == rcbuf)
+			System.arraycopy(rc, 0, rc = new String[rcbuf <<= 1], 0, rcptr);
+		    rc[rcptr++] = (dir + "/" + file).replace("//", "/");
+		}
 	}
 	
 	System.arraycopy(rc, 0, rc = new String[rcptr], 0, rcptr);
