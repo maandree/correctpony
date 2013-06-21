@@ -30,7 +30,7 @@ public class Correctpony
     /**
      * ‘:’ separated list of directionary directories
      */
-    public final String DICT_DIRS = "/usr/share/dict:/usr/local/share/dict:~/share/dict";
+    public static final String DICT_DIRS = "/usr/share/dict:/usr/local/share/dict:~/share/dict";
     
     
     
@@ -43,7 +43,6 @@ public class Correctpony
      */
     public static void main(final String... args) throws IOException
     {
-	
     }
     
     
@@ -71,7 +70,7 @@ public class Correctpony
 	    File fdir = new File(dir);
 	    if (fdir.exists())
 		fdir = fdir.getCanonicalFile();
-	    if (fdir.exists() && dir.isDirectory())
+	    if (fdir.exists() && fdir.isDirectory())
 		for (String file : fdir.list())
 		{
 		    if (rcptr == rcbuf)
