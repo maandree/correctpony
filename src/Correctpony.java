@@ -21,7 +21,7 @@ import java.util.*;
 
 
 /**
- * Mane class
+ * Mane class for correctpony
  * 
  * Mattias Andrée, <a href="mailto:maandree@member.fsf.org">maandree@member.fsf.org</a>
  */
@@ -31,6 +31,11 @@ public class Correctpony
      * ‘:’ separated list of directionary directories
      */
     public static final String DICT_DIRS = "/usr/share/dict:/usr/local/share/dict:~/share/dict";
+    
+    /**
+     * The version of the program
+     */
+    public static final String VERSION = "2.0";
     
     
     
