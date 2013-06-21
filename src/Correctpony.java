@@ -92,7 +92,7 @@ public class Correctpony
     
     
     /**
-     * List all unique words in any number of dictionaries
+     * gets all unique words in any number of dictionaries
      * 
      * @param   dictionaries  Dictionaries by filename
      * @return                Unique words, in lower case
