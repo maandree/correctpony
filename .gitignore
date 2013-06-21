@@ -9,6 +9,9 @@ correcthorse
 /dist/*/*/*
 !/dist/*/*/PKGBUILD
 *.swp
+*.swo
+*.class
+*.jar
 *.bak
 \#*\#
 .\#*
