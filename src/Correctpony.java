@@ -37,6 +37,16 @@ public class Correctpony
      */
     public static final String VERSION = "2.0";
     
+    /**
+     * Default word separators
+     */
+    public static final String[] DEFAULT_SEPARATORS = { " " };
+    
+    /**
+     * Default dictionaries
+     */
+    public static final String[] DEFAULT_DICTIONARIES = null;
+    
     
     
     /**
@@ -46,7 +56,7 @@ public class Correctpony
      * 
      * @throws  IOException  On I/O error
      */
-    public static void main(final String... args) throws IOException
+    public static void main(String... args) throws IOException
     {
     }
     
@@ -94,13 +104,16 @@ public class Correctpony
     /**
      * Gets all unique words in any number of dictionaries
      * 
-     * @param   dictionaries  Dictionaries by filename
+     * @param   dictionaries  Dictionaries by filename, {@code null} for all
      * @return                Unique words, in lower case
      * 
      * @throws  IOException  On I/O error
      */
-    public static String[] getWords(final String[] dictionaries) throws IOException
+    public static String[] getWords(String[] dictionaries) throws IOException
     {
+	if (dictionaries == null)
+	    dictionaries = getDictionaries();
+	
 	final HashSet<String> unique = new HashSet<String>();
 	for (final String dictionary : dictionaries)
 	    {
@@ -144,14 +157,13 @@ public class Correctpony
     /**
      * Gets a dictionary's filename by its name
      * 
-     * 
-     * @parma   dicts  The dictionary by names
-     * @param   files  All dictionaries by filename
-     * @return         The found dictionaries by filename
+     * @parma   dictionaries  The dictionary by names
+     * @param   files         All dictionaries by filename
+     * @return                The found dictionaries by filename
      * 
      * @throws  IOException  On I/O error
      */
-    public static String[] getFiles(final String[] dicts, final String[] files) throws IOException
+    public static String[] getFiles(String[] dictionaries, String[] files) throws IOException
     {
 	final String[] candidates = new String[files.length];
 	for (int i = 0, n = files.length; i < n; i++)
@@ -173,6 +185,37 @@ public class Correctpony
 	System.arraycopy(rc, 0, rc = new String[ptr], 0, ptr);
 	return rc;
     }
+    
+    
+    /**
+     * Joins words
+     * 
+     * @param   words       The words to join
+     * @param   separators  Separators
+     * @param   colour      Whether to use colours
+     * @return              The result
+     */
+    public static String join(String[] words, String[] separators, boolean colour)
+    {
+	final StringBuilder rc = new StringBuilder();
+	int i = 0;
+	for (final String word : words)
+	{
+	    if (i > 0)
+	    {	if (colour)
+		    rc.append("\033[31m");
+		rc.append(separators[random(separators.length)]);
+	    }
+	    if (colour)
+		rc.append((i & 1) == 0 ? "\033[34m" : "\033[33m");
+	    rc.append(word);
+	    i++;
+	}
+	if (colour)
+	    rc.append("\033[00m");
+	return rc.toString();
+    }
+    
     
 }
 
