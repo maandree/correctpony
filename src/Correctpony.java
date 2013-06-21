@@ -135,7 +135,7 @@ public class Correctpony
 	
 	final String[] rc = new String[unique.size()];
 	int ptr = 0;
-	for (final String word : unique;
+	for (final String word : unique)
 	     rc[ptr++] = word;
 	return rc;
     }
