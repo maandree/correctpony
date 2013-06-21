@@ -140,5 +140,39 @@ public class Correctpony
 	return rc;
     }
     
+    
+    /**
+     * Gets a dictionary's filename by its name
+     * 
+     * 
+     * @parma   dicts  The dictionary by names
+     * @param   files  All dictionaries by filename
+     * @return         The found dictionaries by filename
+     * 
+     * @throws  IOException  On I/O error
+     */
+    public static String[] getFiles(final String[] dicts, final String[] files) throws IOException
+    {
+	final String[] candidates = new String[files.length];
+	for (int i = 0, n = files.length; i < n; i++)
+	    candidates[i] = "/" + files[i];
+	
+	String[] rc = new String[dicts.length];
+	int ptr = 0;
+	
+	for (String dict : dicts)
+	{   dict = "/" + dict;
+	    for (final String candidate : candidates)
+		if (candidate.endsWith(dict))
+		{
+		    if (ptr == rc.length)
+			System.arraycopy(rc, 0, rc = new String[rc.length << 1], 0, ptr);
+		    rc[ptr++] = candidate;
+	}	}
+	
+	System.arraycopy(rc, 0, rc = new String[ptr], 0, ptr);
+	return rc;
+    }
+    
 }
 
