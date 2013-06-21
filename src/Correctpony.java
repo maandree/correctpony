@@ -16,6 +16,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+import java.io.*;
+import java.util.*;
 
 
 /**
@@ -23,8 +25,15 @@
  * 
  * Mattias Andrée, <a href="mailto:maandree@member.fsf.org">maandree@member.fsf.org</a>
  */
-public class Program
+public class Correctpony
 {
+    /**
+     * ‘:’ separated list of directionary directories
+     */
+    public final String DICT_DIRS = "/usr/share/dict:/usr/local/share/dict:~/share/dict";
+    
+    
+    
     /**
      * Mane method
      * 
@@ -35,6 +44,40 @@ public class Program
     public static void main(final String... args) throws IOException
     {
 	
+    }
+    
+    
+    /**
+     * Gets all dictionary files
+     * 
+     * @return  All dictionary files
+     * 
+     * @throws  IOException  On I/O error
+     */
+    public static String[] getDictionaries() throws IOException
+    {
+	String[] rc = new String[128];
+	int rcptr = 0;
+	int rcbuf = 128;
+	
+	String HOME = System.getenv("HOME");
+	if ((HOME == null) || (HOME.length() == 0))
+	    HOME = System.getProperty("user.home");
+	
+	for (String dir : DICT_DIRS.split(":"))
+	{
+	    if (dir.startsWith("~"))
+		dir = HOME + dir.substring(1);
+	    for (final String file : (new File(dir)).list())
+	    {
+		if (rcptr == rcbuf)
+		    System.arraycopy(rc, 0, rc = new String[rcbuf <<= 1], 0, rcptr);
+		rc[rcptr++] = (dir + "/" + file).replace("//", "/");
+	    }
+	}
+	
+	System.arraycopy(rc, 0, rc = new String[rcptr], 0, rcptr);
+	return rc;
     }
     
 }
