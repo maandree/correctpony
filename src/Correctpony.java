@@ -51,6 +51,7 @@ public class Correctpony
     }
     
     
+    
     /**
      * Gets all dictionary files
      * 
@@ -62,7 +63,6 @@ public class Correctpony
     {
 	String[] rc = new String[128];
 	int rcptr = 0;
-	int rcbuf = 128;
 	
 	String HOME = System.getenv("HOME");
 	if ((HOME == null) || (HOME.length() == 0))
@@ -78,8 +78,8 @@ public class Correctpony
 	    if (fdir.exists() && fdir.isDirectory())
 		for (String file : fdir.list())
 		{
-		    if (rcptr == rcbuf)
-			System.arraycopy(rc, 0, rc = new String[rcbuf <<= 1], 0, rcptr);
+		    if (rcptr == rc.length)
+			System.arraycopy(rc, 0, rc = new String[rc.length << 1], 0, rcptr);
 		    file = (dir + "/" + file).replace("//", "/");
 		    if ((new File(file)).isFile())
 			rc[rcptr++] = file;
@@ -87,6 +87,56 @@ public class Correctpony
 	}
 	
 	System.arraycopy(rc, 0, rc = new String[rcptr], 0, rcptr);
+	return rc;
+    }
+    
+    
+    /**
+     * List all unique words in any number of dictionaries
+     * 
+     * @param   dictionaries  Dictionaries by filename
+     * @return                Unique words, in lower case
+     * 
+     * @throws  IOException  On I/O error
+     */
+    public static String[] getWords(final String[] dictionaries) throws IOException
+    {
+	final HashSet<String> unique = new HashSet<String>();
+	for (final String dictionary : dictionaries)
+	    {
+		final InputStream is = new FileInputStream(dictionary);
+		byte[] buf;
+		int ptr;
+		try
+		{   buf = new byte[is.available()];
+		    if (buf.length == 0)
+			buf = new byte[1 << 13];
+		    forever:
+		        for (int n;;)
+			{   while (ptr < buf.length)
+			    {
+				ptr += n = is.read(buf, ptr, buf.length - ptr);
+				if (n <= 0)
+				    break forever;
+			    }
+			    System.arraycopy(buf, 0, buf = new String[buf.length << 1], 0, ptr);
+		}	}
+		finally
+		{   try
+		    {   is.close();
+		    }
+		    catch (final Throwable ignore)
+		    {   /* ignore */
+		}   }
+		for (final String word : (new String(buf, 0, ptr, "UTF-8")).split("\n"))
+		    if (word.length() != 0)
+			unique.add(word.toLowerCase());
+	    }
+	
+	final String[] rc = new String[unique.size()];
+	int ptr = 0;
+	for (final String word : unique;
+	     rc[ptr++] = word;
 	return rc;
     }
     
