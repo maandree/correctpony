@@ -194,8 +194,10 @@ public class Correctpony
      * @param   separators  Separators
      * @param   colour      Whether to use colours
      * @return              The result
+     * 
+     * @throws  IOException  On I/O error
      */
-    public static String join(String[] words, String[] separators, boolean colour)
+    public static String join(String[] words, String[] separators, boolean colour) throws IOException
     {
 	final StringBuilder rc = new StringBuilder();
 	int i = 0;
@@ -214,6 +216,20 @@ public class Correctpony
 	if (colour)
 	    rc.append("\033[00m");
 	return rc.toString();
+    }
+    
+    
+    /**
+     * Gets a random integer
+     * 
+     * @param   max  The exclusive upper bound
+     * @return       A random non-negative integer
+     * 
+     * @throws  IOException  On I/O error
+     */
+    public static int random(int max) throws IOException
+    {
+	return 0;
     }
     
     
