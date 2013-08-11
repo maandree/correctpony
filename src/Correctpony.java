@@ -60,8 +60,8 @@ public class Correctpony
      */
     public static void main(String... args) throws IOException
     {
-	String usage = "-h | --copying | --warranty | --version\n"
-	             + "[-p] [-r DEVICE] [-j...] [-s SEP...] [-u] [-c COUNT] [-w COUNT] [-i WORD...] [-l LIST...] [COUNT]";
+	String usage = "[-p] [-r DEVICE] [-j...] [-s SEP...] [-u] [-c COUNT] [-w COUNT] [-i WORD...] [-l LIST...] [COUNT]\n"
+	             + "-h | --copying | --warranty | --version | --wordlists [--full] | --wordcount [-l LIST...]";
 	for (final String symbol : new String[] { "[", "]", "(", ")", "|" })
 	    usage = usage.replace(symbol, "\033[02m" + symbol + "\033[22m");
 	usage = "\033[34mcorrectpony\033[00m " + usage.replace("\n", "\n\033[34mcorrectpony\033[00m ");
@@ -70,7 +70,10 @@ public class Correctpony
 	parser.add(new ArgParser.Argumentless(           1, "-h", "--help"),       "Print this help information");
 	parser.add(new ArgParser.Argumentless(           0, "--copying"),          "Print copyright information");
 	parser.add(new ArgParser.Argumentless(           0, "--warranty"),         "Print warranty information");
-	parser.add(new ArgParser.Argumentless(           0, "--version"),          "Print the program's name and verion");
+	parser.add(new ArgParser.Argumentless(           0, "--version"),          "Print the program's name and version");
+	parser.add(new ArgParser.Argumentless(           0, "--wordlists"),        "Print all available wordlists");
+	parser.add(new ArgParser.Argumentless(           0, "--full"),             "Print full file path");
+	parser.add(new ArgParser.Argumentless(           0, "--wordcount"),        "Print the number of unique words available");
 	parser.add(new ArgParser.Argumentless(           1, "-p", "--nocolour"),   "Do not print with colours");
 	parser.add(new ArgParser.Argumented("DEVICE",    1, "-r", "--random"),     "Random number generator to use");
 	parser.add(new ArgParser.Argumentless(           1, "-j", "--join"),       "Add word joining as a separator");
@@ -121,6 +124,31 @@ public class Correctpony
 	    System.out.println("but WITHOUT ANY WARRANTY; without even the implied warranty of\n");
 	    System.out.println("MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n");
 	    System.out.println("GNU Affero General Public License for more details.\n");
+	    return;
+	}
+	if (opts.get("--wordlists") != null)
+	{
+	    final boolean full = opts.get("--full") != null;
+	    for (final String dictionary : getDictionaries())
+		if (full)
+		    System.out.println(dictionary);
+		else
+		    System.out.println(dictionary.substring(dictionary.lastIndexOf('/') + 1));
+	    return;
+	}
+	if (opts.get("--wordcount") != null)
+	{
+	    String[] wordlists = new String[0];
+	    if (opts.get("--list") != null)
+		for (final String list : opts.get("--list"))
+		{   System.arraycopy(wordlists, 0, wordlists = new String[wordlists.length + 1], 0, wordlists.length - 1);
+		    wordlists[wordlists.length - 1] = list;
+		}
+	    String[] dictionaries = getDictionaries();
+	    if (wordlists.length != 0)
+		dictionaries = getFiles(dictionaries, wordlists);
+	    final String[] dictionary = getWords(dictionaries);
+	    System.out.println(dictionary.length);
 	    return;
 	}
 	
