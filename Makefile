@@ -15,6 +15,8 @@ MISC = $(DATA)/misc
 LICENSES = $(DATA)/licenses
 INFO = $(DATA)/info
 SH_SHEBANG = $(BIN)/sh
+COMMAND = correctpony
+PKGNAME = correctpony
 
 RANDOM_FILES = /dev/urandom /dev/random
 DEFAULT_RANDOM = /dev/urandom
@@ -34,10 +36,67 @@ JAVA_FLAGS = $(JAVADIRS) $(JAVAFLAGS)
 
 CLASSES = Correctpony
 
+BOOK = correctpony
+BOOKDIR = info
+
 
 
 .PHONY: all
-all: cmd shell
+all: cmd shell doc
+
+
+.PHONY: doc
+doc: info
+
+.PHONY: info
+info: $(BOOK).info.gz
+%.info: $(BOOKDIR)/%.texinfo
+	$(MAKEINFO) "$<"
+%.info.gz: %.info
+	gzip -9c < "$<" > "$@"
+
+
+.PHONY: pdf
+pdf: $(BOOK).pdf
+%.pdf: $(BOOKDIR)/%.texinfo
+	texi2pdf "$<"
+
+pdf.gz: $(BOOK).pdf.gz
+%.pdf.gz: %.pdf
+	gzip -9c < "$<" > "$@"
+
+pdf.xz: $(BOOK).pdf.xz
+%.pdf.xz: %.pdf
+	xz -e9 < "$<" > "$@"
+
+
+.PHONY: dvi
+dvi: $(BOOK).dvi
+%.dvi: $(BOOKDIR)/%.texinfo
+	$(TEXI2DVI) "$<"
+
+dvi.gz: $(BOOK).dvi.gz
+%.dvi.gz: %.dvi
+	gzip -9c < "$<" > "$@"
+
+dvi.xz: $(BOOK).dvi.xz
+%.dvi.xz: %.dvi
+	xz -e9 < "$<" > "$@"
+
+
+.PHONY: ps
+ps: $(BOOK).ps
+%.ps: $(BOOKDIR)/%.texinfo
+	texi2pdf --ps "$<"
+
+ps.gz: $(BOOK).ps.gz
+%.ps.gz: %.dvi
+	gzip -9c < "$<" > "$@"
+
+ps.xz: $(BOOK).ps.xz
+%.ps.xz: %.dvi
+	xz -e9 < "$<" > "$@"
+
 
 .PHONY: cmd
 cmd: launcher manifest java jar
