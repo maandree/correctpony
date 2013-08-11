@@ -33,6 +33,7 @@ public class Correctpony
      * ‘:’ separated list of directionary directories
      */
     public static final String DICT_DIRS = "/usr/share/dict:/usr/local/share/dict:~/share/dict";
+    /* The makefile changes this line [DICT_DIRS], do not edit the value or name.  */
     
     /**
      * The version of the program

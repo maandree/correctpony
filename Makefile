@@ -14,6 +14,7 @@ JAR = jar
 INSTALLED_PREFIX = /usr
 INSTALLED_LIB = /lib
 INSTALLED_JARS = $(INSTALLED_PREFIX)$(INSTALLED_LIB)
+DICT_DIRS = /usr/share/dict:/usr/local/share/dict:~/share/dict
 
 JAVADIRS = -s "src" -d "bin" -cp "src:$(INSTALLED_JARS)/ArgParser.jar"
 JAVAFLAGS = -Xlint $(JAVA_OPTIMISE)
@@ -28,8 +29,12 @@ all: java jar
 .PHONY: java
 java: $(foreach CLASS, $(CLASSES), bin/$(CLASS).class)
 
-bin/%.class: src/%.java
+bin/%.java: src/%.java
 	@mkdir -p bin
+	cp "$<" "$@"
+	sed -i '/DICT_DIRS/s|/usr/share/dict:/usr/local/share/dict:~/share/dict|$(DICT_DIRS)|' "$@"
+
+bin/%.class: bin/%.java
 	$(JAVAC) $(JAVA_FLAGS) "$<"
 
 .PHONY: jar
