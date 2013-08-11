@@ -16,6 +16,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+import argparser.ArgParser;
+
 import java.io.*;
 import java.util.*;
 
@@ -58,6 +60,30 @@ public class Correctpony
      */
     public static void main(String... args) throws IOException
     {
+	String usage = "-h | --copying | --warranty | --version\n"
+	             + "[-p] [-r DEVICE] [-j...] [-s SEP...] [-u] [-c COUNT] [-w COUNT] [-i WORD...] [-l LIST...] [COUNT]";
+	for (final String symbol : new String[] { "[", "]", "(", ")", "|" })
+	    usage = usage.replace(symbol, "\033[02m" + symbol + "\033[22m");
+	usage = "\033[34mcorrectpony\033[00m " + usage.replace("\n", "\n\033[34mcorrectpony\033[00m ");
+	ArgParser parser = new ArgParser("passphrase generator inspired by xkcd 936", usage);
+	
+	parser.add(new ArgParser.Argumentless(           1, "-h", "--help"),       "Print this help information");
+	parser.add(new ArgParser.Argumentless(           0, "--copying"),          "Print copyright information");
+	parser.add(new ArgParser.Argumentless(           0, "--warranty"),         "Print warranty information");
+	parser.add(new ArgParser.Argumentless(           0, "--version"),          "Print the program's name and verion");
+	parser.add(new ArgParser.Argumentless(           1, "-p", "--nocolour"),   "Do not print with colours");
+	parser.add(new ArgParser.Argumented("DEVICE",    1, "-r", "--random"),     "Random number generator to use");
+	parser.add(new ArgParser.Argumentless(           1, "-j", "--join"),       "Add word joining as a separator");
+	parser.add(new ArgParser.Argumented("SEPARATOR", 1, "-s", "--separator"),  "Add a separator");
+	parser.add(new ArgParser.Argumentless(           1, "-u", "--camelcase"),  "Capitalise first letter of each word");
+	parser.add(new ArgParser.Argumented("COUNT"      1, "-c", "--characters"), "Least number of characters");
+	parser.add(new ArgParser.Argumented("COUNT"      1, "-w", "--words"),      "Least number of words");
+	parser.add(new ArgParser.Argumented("WORD"       1, "-i", "--include"),    "Word that must be included");
+	parser.add(new ArgParser.Argumented("WORDLIST"   1, "-l", "--list"),       "Word list to use");
+	
+	parser.parse(args);
+	
+	parser.help();
     }
     
     
