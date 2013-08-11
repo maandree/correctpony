@@ -1,0 +1,31 @@
+(correctpony
+	(multiple argumentless
+		((options -h --help)       (complete --help)       (desc 'Print help information'))
+		((options --copying)       (complete --copying)    (desc 'Print copyright information'))
+		((options --warranty)      (complete --warranty)   (desc 'Print warranty information'))
+		((options --version)       (complete --version)    (desc 'Print the program's name and version'))
+		((options --wordlists)     (complete --wordlists)  (desc 'Print all available wordlists'))
+		((options --full)          (complete --full)       (desc 'Print full file path'))
+		((options --wordcount)     (complete --wordcount)  (desc 'Print the number of unique words available'))
+		((options -p --nocolour)   (complete --nocolour)   (desc 'Do not print with colours'))
+		((options -j --join)       (complete --join)       (desc 'Add word joining as a separator'))
+		((options -u --camelcase)  (complete --camelcase)  (desc 'Capitalise first letter of each word'))
+		((options -z --security)   (complete --security)   (desc 'Show stats and security estimates'))
+	)
+	
+	(multiple argumented
+		((options -r --random)     (complete --random)      (arg DEVICE)     (suggest random)           (desc 'Random number generator to use'))
+		((options -s --separator)  (complete --separator)   (arg SEPARATOR)                  (file -0)  (desc 'Add a separator'))
+		((options -c --characers)  (complete --characters)  (arg COUNT)                      (file -0)  (desc 'Least number of characters'))
+		((options -w --words)      (complete --words)       (arg COUNT)                      (file -0)  (desc 'Least number of words'))
+		((options -i --include)    (complete --include)     (arg WORD)                       (file -0)  (desc 'Word that must be included'))
+		((options -l --list)       (complete --list)        (arg WORDLIST)   (suggest list)  (file -0)  (desc 'Word list to use'))
+	)
+	
+	(suggestion random (verbatim /dev/random /dev/urandom)
+	)
+	
+	(suggestion list (exec correctpony --wordlists)
+	)
+)
+
