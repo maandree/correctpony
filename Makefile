@@ -37,10 +37,17 @@ CLASSES = Correctpony
 all: cmd
 
 .PHONY: cmd
-cmd: launcher java jar
+cmd: launcher manifest java jar
 
 .PHONY:
 launcher: bin/correctpony
+
+.PHONY:
+manifest: bin/META-INF/MANIFEST.MF
+bin/META-INF/MANIFEST.MF: META-INF/MANIFEST.MF
+	@mkdir -p bin/META-INF
+	cp "$<" "$@"
+	sed -i 's|/usr/lib/|$(INSTALLED_JARS)/|' "$@"
 
 bin/correctpony: src/correctpony.sh
 	@mkdir -p bin

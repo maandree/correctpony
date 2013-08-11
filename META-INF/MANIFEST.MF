@@ -1,0 +1,2 @@
+Main-Class: Correctpony
+Class-Path: /usr/lib/ArgParser.jar
