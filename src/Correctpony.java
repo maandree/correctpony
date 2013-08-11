@@ -82,8 +82,90 @@ public class Correctpony
 	parser.add(new ArgParser.Argumented("WORDLIST"   1, "-l", "--list"),       "Word list to use");
 	
 	parser.parse(args);
+	final Map<String, String[]> opts = parser.opts;
 	
-	parser.help();
+	
+	if (opts.get("--help") != null)
+	{
+	    parser.help();
+	    return;
+	}
+	if (opts.get("--version") != null)
+	{
+	    System.out.println("correctpony " + VERSION);
+	    return;
+	}
+	if (opts.get("--copying") != null)
+	{
+	    System.out.println("correctpony — a passphrase generator inspired by xkcd 936\n");
+	    System.out.println("\n");
+	    System.out.println("Copyright © 2012, 2013  Mattias Andrée (maandree@member.fsf.org)\n");
+	    System.out.println("\n");
+	    System.out.println("This program is free software: you can redistribute it and/or modify\n");
+	    System.out.println("it under the terms of the GNU Affero General Public License as published by\n");
+	    System.out.println("the Free Software Foundation, either version 3 of the License, or\n");
+	    System.out.println("(at your option) any later version.\n");
+	    System.out.println("\n");
+	    System.out.println("This program is distributed in the hope that it will be useful,\n");
+	    System.out.println("but WITHOUT ANY WARRANTY; without even the implied warranty of\n");
+	    System.out.println("MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n");
+	    System.out.println("GNU Affero General Public License for more details.\n");
+	    System.out.println("\n");
+	    System.out.println("You should have received a copy of the GNU Affero General Public License\n");
+	    System.out.println("along with this program.  If not, see <http://www.gnu.org/licenses/>.\n");
+	    return;
+	}
+	if (opts.get("--warranty") != null)
+	{
+	    System.out.println("This program is distributed in the hope that it will be useful,\n");
+	    System.out.println("but WITHOUT ANY WARRANTY; without even the implied warranty of\n");
+	    System.out.println("MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n");
+	    System.out.println("GNU Affero General Public License for more details.\n");
+	    return;
+	}
+	
+	
+	final boolean colours = opts.get("--nocolour") == null;
+	final boolean camelcase = opts.get("--camelcase") != null;
+	String[] separators = new String[0];
+	String[] words = new String[0];
+	String[] wordlists = new String[0];
+	int maxChars = opts.get("--characters") != null ? Integer.parseInt(opts.get("--characters")) : 12;
+	int ninWords = opts.get("--words") != null ? Integer.parseInt(opts.get("--words")) : 4;
+	String randomgen = opts.get("--random") != null ? opts.get("--random") : "/dev/urandom";
+	
+	if (opts.get("--join") != null)
+	    for (final String _ : opts.get("--join"))
+	    {
+		System.arraycopy(separators, 0, separators = new String[separators.length + 1], 0, separators.length - 1);
+		separators[separators.length - 1] = "";
+	    }
+	
+	if (opts.get("--separator") != null)
+	    for (final String separator : opts.get("--separator"))
+	    {
+		System.arraycopy(separators, 0, separators = new String[separators.length + 1], 0, separators.length - 1);
+		separators[separators.length - 1] = separator;
+	    }
+	
+	if (opts.get("--include") != null)
+	    for (final String word : opts.get("--include"))
+	    {
+		System.arraycopy(words, 0, words = new String[words.length + 1], 0, words.length - 1);
+		words[words.length - 1] = word;
+	    }
+	
+	if (opts.get("--list") != null)
+	    for (final String list : opts.get("--list"))
+	    {
+		System.arraycopy(wordlists, 0, wordlists = new String[wordlists.length + 1], 0, wordlists.length - 1);
+		wordlists[wordlists.length - 1] = list;
+	    }
+	
+	if (separators.length == 0)
+	    separators = DEFAULT_SEPARATORS;
+	if (wordlists.length == 0)
+	    wordlists = null;
     }
     
     
