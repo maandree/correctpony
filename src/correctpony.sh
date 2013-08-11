@@ -1,2 +1,2 @@
 #!/bin/sh
-java -jar bin/CorrectPony.jar "$@"
+java -jar bin/Correctpony.jar "$@"
