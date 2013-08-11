@@ -154,7 +154,7 @@ public class Correctpony
 	    String[] dictionaries = getDictionaries();
 	    if (wordlists.length == 0)
 		wordlists = DEFAULT_DICTIONARIES;
-	    if (wordlists.length == null)
+	    if (wordlists == null)
 		dictionaries = getFiles(wordlists, dictionaries);
 	    final String[] dictionary = getWords(dictionaries);
 	    System.out.println(dictionary.length);
