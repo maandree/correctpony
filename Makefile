@@ -105,7 +105,7 @@ cmd: manifest java jar exec-jar
 exec-jar: bin/correctpony
 
 bin/correctpony: bin/Correctpony.jar
-	echo '#!$(JAVA_SHEBASH) -jar' > "$@"
+	echo '#!$(JAVA_SHEBANG) -jar' > "$@"
 	cat "$<" >> "$@"
 
 .PHONY:
