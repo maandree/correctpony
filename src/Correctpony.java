@@ -383,7 +383,7 @@ public class Correctpony
 	if (wordlists != null)
 	    dictionaries = getFiles(dictionaries, wordlists);
 	final String[] dictionary = getWords(dictionaries);
-	    
+	
 	int joinMinimum = (1 << 31) - 1;
 	for (final String separator : separators)
 	    if (joinMinimum > separator.length())
