@@ -401,14 +401,14 @@ public class Correctpony
 	    minChars -= passphraseLength * words.length;
 	    
 	    while ((passphraseLength < minChars) || (passphrase.size() < minWords))
-	    {	final String word = dictionary[random(dictionary.length)];
+	    {	final String word = dictionary[random(dictionary.length)].toLowerCase();
 		passphraseLength += word.length() + joinMinimum;
 		passphrase.add(word);
 	    }
 	    
 	    for (final String word : words)
 	    {	int position = random(passphrase.size() + 1);
-		passphrase.add(position, word);
+		passphrase.add(position, word.toLowerCase());
 	    }
 	    
 	    final String[] passphrase_array = new String[passphrase.size()];
