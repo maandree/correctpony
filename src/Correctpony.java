@@ -228,6 +228,39 @@ public class Correctpony
     
     
     /**
+     * Gets dictionaries' filename by they name
+     * 
+     * @parma   dictionaries  The dictionaries by names
+     * @param   files         All dictionaries by filename
+     * @return                The found dictionaries by filename
+     * 
+     * @throws  IOException  On I/O error
+     */
+    public static String[] getFiles(String[] dictionaries, String[] files) throws IOException
+    {
+	final String[] candidates = new String[files.length];
+	for (int i = 0, n = files.length; i < n; i++)
+	    candidates[i] = "/" + files[i];
+	
+	String[] rc = new String[dicts.length];
+	int ptr = 0;
+	
+	for (String dict : dicts)
+	{   dict = "/" + dict;
+	    for (final String candidate : candidates)
+		if (candidate.endsWith(dict))
+		{
+		    if (ptr == rc.length)
+			System.arraycopy(rc, 0, rc = new String[rc.length << 1], 0, ptr);
+		    rc[ptr++] = candidate;
+	}	}
+	
+	System.arraycopy(rc, 0, rc = new String[ptr], 0, ptr);
+	return rc;
+    }
+    
+    
+    /**
      * Gets all unique words in any number of dictionaries
      * 
      * @param   dictionaries  Dictionaries by filename, {@code null} for all
@@ -276,39 +309,6 @@ public class Correctpony
 	int ptr = 0;
 	for (final String word : unique)
 	     rc[ptr++] = word;
-	return rc;
-    }
-    
-    
-    /**
-     * Gets dictionaries' filename by they name
-     * 
-     * @parma   dictionaries  The dictionaries by names
-     * @param   files         All dictionaries by filename
-     * @return                The found dictionaries by filename
-     * 
-     * @throws  IOException  On I/O error
-     */
-    public static String[] getFiles(String[] dictionaries, String[] files) throws IOException
-    {
-	final String[] candidates = new String[files.length];
-	for (int i = 0, n = files.length; i < n; i++)
-	    candidates[i] = "/" + files[i];
-	
-	String[] rc = new String[dicts.length];
-	int ptr = 0;
-	
-	for (String dict : dicts)
-	{   dict = "/" + dict;
-	    for (final String candidate : candidates)
-		if (candidate.endsWith(dict))
-		{
-		    if (ptr == rc.length)
-			System.arraycopy(rc, 0, rc = new String[rc.length << 1], 0, ptr);
-		    rc[ptr++] = candidate;
-	}	}
-	
-	System.arraycopy(rc, 0, rc = new String[ptr], 0, ptr);
 	return rc;
     }
     
