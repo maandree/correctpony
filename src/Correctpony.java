@@ -281,9 +281,9 @@ public class Correctpony
     
     
     /**
-     * Gets a dictionary's filename by its name
+     * Gets dictionaries' filename by they name
      * 
-     * @parma   dictionaries  The dictionary by names
+     * @parma   dictionaries  The dictionaries by names
      * @param   files         All dictionaries by filename
      * @return                The found dictionaries by filename
      * 
