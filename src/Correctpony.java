@@ -166,7 +166,25 @@ public class Correctpony
 	    separators = DEFAULT_SEPARATORS;
 	if (wordlists.length == 0)
 	    wordlists = null;
+	
+	
+	
+	Correctpony.randomgen = new FileInputStream(randomgen);
+	try
+	{
+	}
+	finally
+	{
+	    Correctpony.randomgen.close();
+	}
     }
+    
+    
+    
+    /**
+     * Random number generatore character device input stream
+     */
+    public static InputStream randomgen = null;
     
     
     
@@ -337,7 +355,11 @@ public class Correctpony
      */
     public static int random(int max) throws IOException
     {
-	return 0;
+	int rc = Correctpony.read() & 127;
+	rc = (rc << 8) | Correctpony.read();
+	rc = (rc << 8) | Correctpony.read();
+	rc = (rc << 8) | Correctpony.read();
+	return rc % max;
     }
     
     
