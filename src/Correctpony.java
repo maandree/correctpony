@@ -425,6 +425,10 @@ public class Correctpony
 	rc = (rc << 8) | Correctpony.randomgen.read();
 	rc = (rc << 8) | Correctpony.randomgen.read();
 	rc = (rc << 8) | Correctpony.randomgen.read();
+	if (rc == -1)
+	{   System.err.println("End of random number generator file stream reached. USE A REAL RANDOM DEVICE!");
+	    System.exit(2);
+	}
 	return rc % max;
     }
     
