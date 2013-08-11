@@ -15,7 +15,6 @@ MISC = $(DATA)/misc
 LICENSES = $(DATA)/licenses
 INFO = $(DATA)/info
 DICT = $(DATA)/dict
-SH_SHEBANG = $(BIN)/sh
 COMMAND = correctpony
 PKGNAME = correctpony
 
@@ -99,10 +98,14 @@ ps.xz: correctpony.ps.xz
 
 
 .PHONY: cmd
-cmd: launcher manifest java jar
+cmd: manifest java jar exec-jar
 
-.PHONY:
-launcher: bin/correctpony
+.PHONY: exec-jar
+exec-jar: bin/correctpony
+
+bin/correctpony: bin/Correctpony.jar
+	echo '#!$(JAVA_SHEBASH) -jar' > "$@"
+	cat "$<" >> "$@"
 
 .PHONY:
 manifest: bin/META-INF/MANIFEST.MF
@@ -110,12 +113,6 @@ bin/META-INF/MANIFEST.MF: META-INF/MANIFEST.MF
 	@mkdir -p bin/META-INF
 	cp "$<" "$@"
 	sed -i 's|/usr/lib/|$(INSTALLED_JARS)/|' "$@"
-
-bin/correctpony: src/correctpony.sh
-	@mkdir -p bin
-	cp "$<" "$@"
-	sed -i 's:^#!/bin/sh$$:#!$(SH_SHEBASH):' "$@"
-	sed -i 's|bin/|$(PREFIX)$(MISC)/|' "$@"
 
 .PHONY: java
 java: $(foreach CLASS, $(CLASSES), bin/$(CLASS).class)

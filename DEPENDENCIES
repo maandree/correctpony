@@ -2,7 +2,6 @@ RUNTIME:
 
 java-runtime>=6
 argparser-java
-sh
 
 
 MAKE:
