@@ -60,19 +60,16 @@ passwords that are hard for ponies to remember, but easy for robots to guess.
 
 
 @menu
-* Overview::                          Overview of correctpony
-* Invoking::                          Running of correctpony
+* Overview::                          Overview of @command{correctpony}
+* Invoking::                          Running of @command{correctpony}
 * License of correctpony::            The license of correctpony
 * GNU Free Documentation License::    GNU Free Documentation License
-* Concept index::                     Concept index
 @end menu
 
 
 
 @node Overview
 @chapter Overview
-@cindex overview
-@cindex description
 
 correctpony is a passphrase generator based on @url{http://xkcd.com/936/}.
 
@@ -85,21 +82,12 @@ are paranoid do one or two simple modifications to the generated phrase.
 
 @node Invoking
 @chapter Invoking
-@cindex invoking
-@cindex arguments
-@cindex options
-@cindex executing
-@cindex running
-@cindex count, passphrases
-@cindex passphrases, count
-@cindex security
-@cindex statistics
-@cindex @command{correctpony-security}
 
 The format for running the @command{correctpony} program is:
 
 @example
-@command{correctpony} [@var{option}...] [@var{count}]
+@command{correctpony} [-p] [-r @var{DEVICE}] [-j...] [-s @var{SEP}...] [-u] [-c @var{COUNT}] [-w @var{COUNT}] [-i @var{WORD}...] [-l @var{LIST}...] [@var{COUNT} | -z]
+@command{correctpony} -h | --copying | --warranty | --version | --wordlists [--full] | --wordcount [-l @var{LIST}...]
 @end example
 
 The default value for @var{count} is 1, this values indicates
@@ -110,54 +98,67 @@ how many passphrases are generates, each on a separate line.
 @table @option
 @item -h
 @itemx --help
-Print this help table and exit.
+Print help information.
 
-@item -v
-@itemx --version
-Print version and exit.
+@item --copying
+Print copyright information.
+
+@item --warranty
+Print warranty information.
+
+@item --version
+Print the program's name and version.
+
+@item --wordlists
+Print all available word lists.
+
+@item --full
+Print full file path.
+
+@item --wordcount
+Print the number of unique words available.
 
 @item -p
 @itemx --nocolour
-Do not colour the words in the passphrase output.
+Do not print with colours.
+
+@item -r
+@itemx --random DEVICE
+Random number generator to use.
 
 @item -j
 @itemx --join
-Join all words.
-
-@item -i
-@itemx --include @emph{word}
-Include @emph{word} in passphrase.
-
-@item -l
-@itemx --list @emph{list}
-Wse wordlist @emph{list}. Must be either absolute path or path
-relative to /usr/share/correctpony (with default installation settings).
-Max 100 wordlists can be specified; if omitted, the default wordlist
-@file{english} will be used.
-
-@item -c
-@itemx --char @emph{n=12}
-The passphrase must be at least @emph{n} characters long.
-
-@item -w
-@itemx --words @emph{n=4}
-The passphrase must consist of @emph{n} words.
+Add word joining as a separator.
 
 @item -s
-@itemx --sep @emph{char=' '}
-Use @emph{char} as separator between words.
+@itemx --separator
+Add a separator.
 
 @item -u
 @itemx --camelcase
 Capitalise first letter of each word.
 
-@end table
+@item -c
+@itemx --characters
+Least number of characters.
 
-In addition to @command{correctpony}, you have the command
-@command{correctpony-security}. It is a simple shell script
-that some security information about using @command{correctpony}
-bases on your wordlists and some practices.
-@command{correctpony-security} ignores stdin and arguments.
+@item -w
+@itemx --words
+Least number of words.
+
+@item -i
+@itemx --include
+Word that must be included.
+
+@item -l
+@itemx --list
+Word list to use.
+
+@item -z
+@itemx --security
+Show stats and security estimates.
+
+@end table
 
 
 
@@ -186,9 +187,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 @appendix GNU Free Documentation License
 @include fdl.texinfo
 
-@node Concept index
-@appendix Concept index
-@printindex cp
+@c @node Concept index
+@c @appendix Concept index
+@c @printindex cp
 
 @c @node Concept and program index
 @c @appendix Concept and program index
