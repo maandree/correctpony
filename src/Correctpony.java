@@ -205,7 +205,7 @@ public class Correctpony
 	    
 	    System.out.println();
 	    System.out.println("You have a total of " + wordcount + " words in all your selected word lists,");
-	    System.out.println("The English language contains about 500000 words. That is c:a " + procent + " %");
+	    System.out.println("The English language contains about 500000 words. That is c:a " + procent + " %.");
 	    System.out.println();
 	    
 	    double time = (double)wordcount;
@@ -217,7 +217,7 @@ public class Correctpony
 	    time /= 60 * 60 * 24 * 365.2425;
 	    
 	    System.out.println("Trying to crack the passphrase knowing all settings and the dictionaries,");
-	    System.out.println("it would take about " + time / 1000 + " years at most, making 1000 guesses per seconds");
+	    System.out.println("it would take about " + time / 1000 + " years at most, making 1000 guesses per seconds.");
 	    System.out.println();
 	    
 	    System.out.println("Trying to crack the passphrase knowing all settings and the dictionaries,");
