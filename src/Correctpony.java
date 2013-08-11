@@ -77,7 +77,7 @@ public class Correctpony
 	parser.add(new ArgParser.Argumentless(           0, "--copying"),          "Print copyright information");
 	parser.add(new ArgParser.Argumentless(           0, "--warranty"),         "Print warranty information");
 	parser.add(new ArgParser.Argumentless(           0, "--version"),          "Print the program's name and version");
-	parser.add(new ArgParser.Argumentless(           0, "--wordlists"),        "Print all available wordlists");
+	parser.add(new ArgParser.Argumentless(           0, "--wordlists"),        "Print all available word lists");
 	parser.add(new ArgParser.Argumentless(           0, "--full"),             "Print full file path");
 	parser.add(new ArgParser.Argumentless(           0, "--wordcount"),        "Print the number of unique words available");
 	parser.add(new ArgParser.Argumentless(           1, "-p", "--nocolour"),   "Do not print with colours");
