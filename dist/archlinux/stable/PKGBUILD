@@ -1,23 +1,25 @@
 # Maintainer: Mattias Andrée <`base64 -d`(bWFhbmRyZWUK)@member.fsf.org>
+
 pkgname=correctpony
-pkgver=1.3
+pkgver=2.0
 pkgrel=2
 pkgdesc="Passphrase generator based on http://xkcd.com/936/"
-arch=('i686' 'x86_64')
-url="https://github.com/maandree/$pkgname"
+arch=('any')
+url="https://github.com/maandree/correctpony"
 license=('AGPL3')
-optdepends=('bc: for using the correctpony-security script')
+depends=('java-runtime>=6' 'argparser' 'sh')
+makedepends=('java-environment>=6' 'argparser' 'make' 'sed' 'coreutils' 'auto-auto-complete' 'texinfo' 'gzip')
 provides=('correctpony')
 conflicts=('correctpony')
-source=($url/tarball/v$pkgver)
-md5sums=(8b1300258a231d1fe5e319cfbddc7711)
+source=($url/archive/$pkgver.tar.gz)
+sha256sums=(c8b4f53b75560e6c3bf8556ab0a73f21c93950197a8b9068151243956611efbd)
 
 build() {
-  cd maandree-${pkgname}-*
+  cd "$srcdir/correctpony-$pkgver"
   make -B
 }
 
 package() {
-  cd maandree-${pkgname}-*
+  cd "$srcdir/correctpony-$pkgver"
   make DESTDIR="$pkgdir/" install
 }
