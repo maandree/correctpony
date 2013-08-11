@@ -417,6 +417,18 @@ public class Correctpony
     
     
     /**
+     * Camel case a lower case word
+     * 
+     * @param   word  The lower case word
+     * @return        The word in camel case
+     */
+    public static String camelcase(String word)
+    {
+	return word.substring(0, 1).toUpperCase() + word.substring(1);
+    }
+    
+    
+    /**
      * Gets a random integer
      * 
      * @param   max  The exclusive upper bound
@@ -478,12 +490,12 @@ public class Correctpony
 	    while ((passphraseLength < minChars) || (passphrase.size() < minWords))
 	    {	final String word = dictionary[random(dictionary.length)].toLowerCase();
 		passphraseLength += length(word) + joinMinimum;
-		passphrase.add(word);
+		passphrase.add(camelcase ? camelcase(word) : word);
 	    }
 	    
 	    for (final String word : words)
 	    {	int position = random(passphrase.size() + 1);
-		passphrase.add(position, word.toLowerCase());
+		passphrase.add(position, camelcase ? camelcase(word.toLowerCase()) : word.toLowerCase());
 	    }
 	    
 	    final String[] passphrase_array = new String[passphrase.size()];
