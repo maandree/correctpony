@@ -33,3 +33,5 @@ _/
 /*.pgs
 /*.vrs
 /*.*sh-completion
+/*.configured
+

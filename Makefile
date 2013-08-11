@@ -37,7 +37,7 @@ CLASSES = Correctpony
 
 
 .PHONY: all
-all: cmd
+all: cmd shell
 
 .PHONY: cmd
 cmd: launcher manifest java jar
@@ -76,9 +76,28 @@ jar: bin/Correctpony.jar
 bin/Correctpony.jar: java bin/META-INF/MANIFEST.MF
 	cd bin; $(JAR) cfm Correctpony.jar META-INF/MANIFEST.MF $(foreach CLASS, $(CLASSES), $(CLASS).class)
 
+.PHONY: shell
+shell: bash fish zsh
+
+.PHONY: bash
+bash: correctpony.bash-completion
+
+.PHONY: fish
+fish: correctpony.fish-completion
+
+.PHONY: zsh
+zsh: correctpony.zsh-completion
+
+correctpony.auto-completion.configured: correctpony.auto-completion
+	cp "$<" "$@"
+	sed -i 's:/dev/urandom /dev/random:$(RANDOM_FILES):' "$@"
+
+correctpony.%sh-completion: correctpony.auto-completion.configured
+	auto-auto-complete $*sh --source "$<" --output "$@"
+
 
 
 .PHONY: clean
 clean:
-	-rm -rf -- bin
+	-rm -rf -- bin *.configured *.*sh-completion
 

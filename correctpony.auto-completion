@@ -1,9 +1,11 @@
 (correctpony
+	(default  (arg COUNT)  (files -0)  (desc 'Number of passphrases to generate'))
+	
 	(multiple argumentless
 		((options -h --help)       (complete --help)       (desc 'Print help information'))
 		((options --copying)       (complete --copying)    (desc 'Print copyright information'))
 		((options --warranty)      (complete --warranty)   (desc 'Print warranty information'))
-		((options --version)       (complete --version)    (desc 'Print the program's name and version'))
+		((options --version)       (complete --version)    (desc 'Print the program\'s name and version'))
 		((options --wordlists)     (complete --wordlists)  (desc 'Print all available wordlists'))
 		((options --full)          (complete --full)       (desc 'Print full file path'))
 		((options --wordcount)     (complete --wordcount)  (desc 'Print the number of unique words available'))
@@ -14,15 +16,15 @@
 	)
 	
 	(multiple argumented
-		((options -r --random)     (complete --random)      (arg DEVICE)     (suggest random)           (desc 'Random number generator to use'))
-		((options -s --separator)  (complete --separator)   (arg SEPARATOR)                  (file -0)  (desc 'Add a separator'))
-		((options -c --characers)  (complete --characters)  (arg COUNT)                      (file -0)  (desc 'Least number of characters'))
-		((options -w --words)      (complete --words)       (arg COUNT)                      (file -0)  (desc 'Least number of words'))
-		((options -i --include)    (complete --include)     (arg WORD)                       (file -0)  (desc 'Word that must be included'))
-		((options -l --list)       (complete --list)        (arg WORDLIST)   (suggest list)  (file -0)  (desc 'Word list to use'))
+		((options -r --random)     (complete --random)      (arg DEVICE)     (suggest random)            (desc 'Random number generator to use'))
+		((options -s --separator)  (complete --separator)   (arg SEPARATOR)                  (files -0)  (desc 'Add a separator'))
+		((options -c --characers)  (complete --characters)  (arg COUNT)                      (files -0)  (desc 'Least number of characters'))
+		((options -w --words)      (complete --words)       (arg COUNT)                      (files -0)  (desc 'Least number of words'))
+		((options -i --include)    (complete --include)     (arg WORD)                       (files -0)  (desc 'Word that must be included'))
+		((options -l --list)       (complete --list)        (arg WORDLIST)   (suggest list)  (files -0)  (desc 'Word list to use'))
 	)
 	
-	(suggestion random (verbatim /dev/random /dev/urandom)
+	(suggestion random (verbatim /dev/urandom /dev/random)
 	)
 	
 	(suggestion list (exec correctpony --wordlists)
