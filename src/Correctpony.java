@@ -397,12 +397,12 @@ public class Correctpony
 	    
 	    minWords -= words.length;
 	    for (final String word : words)
-		minChars -= word.length();
+		minChars -= length(word);
 	    minChars -= passphraseLength * words.length;
 	    
 	    while ((passphraseLength < minChars) || (passphrase.size() < minWords))
 	    {	final String word = dictionary[random(dictionary.length)].toLowerCase();
-		passphraseLength += word.length() + joinMinimum;
+		passphraseLength += length(word) + joinMinimum;
 		passphrase.add(word);
 	    }
 	    
@@ -416,6 +416,26 @@ public class Correctpony
 	    passphrases[i] = join(passphrase_array, separators, colours);
 	}
 	return passphrases;
+    }
+    
+    
+    /**
+     * Gets the actual length of string
+     * 
+     * @param   text  The string
+     * @return        The length of the string
+     */
+    public static int length(String text)
+    {
+	/* This code is Java specific, Java encodes in UTF-16 */
+	
+	int rc = 0;
+	for (int i = 0, n = text.length(); i < n; i++)
+	{   char c = text.charAt(i);
+	    if ((c & 0xFC00) != 0xDC00)
+		rc++;
+	}
+	return rc;
     }
     
     
