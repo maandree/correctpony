@@ -76,23 +76,23 @@ public class Correctpony
 	parser.add(new ArgParser.Argumentless(           1, "-j", "--join"),       "Add word joining as a separator");
 	parser.add(new ArgParser.Argumented("SEPARATOR", 1, "-s", "--separator"),  "Add a separator");
 	parser.add(new ArgParser.Argumentless(           1, "-u", "--camelcase"),  "Capitalise first letter of each word");
-	parser.add(new ArgParser.Argumented("COUNT"      1, "-c", "--characters"), "Least number of characters");
-	parser.add(new ArgParser.Argumented("COUNT"      1, "-w", "--words"),      "Least number of words");
-	parser.add(new ArgParser.Argumented("WORD"       1, "-i", "--include"),    "Word that must be included");
-	parser.add(new ArgParser.Argumented("WORDLIST"   1, "-l", "--list"),       "Word list to use");
+	parser.add(new ArgParser.Argumented("COUNT",     1, "-c", "--characters"), "Least number of characters");
+	parser.add(new ArgParser.Argumented("COUNT",     1, "-w", "--words"),      "Least number of words");
+	parser.add(new ArgParser.Argumented("WORD",      1, "-i", "--include"),    "Word that must be included");
+	parser.add(new ArgParser.Argumented("WORDLIST",  1, "-l", "--list"),       "Word list to use");
 	
 	parser.parse(args);
 	final Map<String, String[]> opts = parser.opts;
 	
+	parser.testFiles(0, 1, 1);
+	
 	
 	if (opts.get("--help") != null)
-	{
-	    parser.help();
+	{   parser.help();
 	    return;
 	}
 	if (opts.get("--version") != null)
-	{
-	    System.out.println("correctpony " + VERSION);
+	{   System.out.println("correctpony " + VERSION);
 	    return;
 	}
 	if (opts.get("--copying") != null)
@@ -130,35 +130,32 @@ public class Correctpony
 	String[] separators = new String[0];
 	String[] words = new String[0];
 	String[] wordlists = new String[0];
-	int maxChars = opts.get("--characters") != null ? Integer.parseInt(opts.get("--characters")) : 12;
-	int ninWords = opts.get("--words") != null ? Integer.parseInt(opts.get("--words")) : 4;
-	String randomgen = opts.get("--random") != null ? opts.get("--random") : "/dev/urandom";
+	int minChars = opts.get("--characters") != null ? Integer.parseInt(opts.get("--characters")[0]) : 12;
+	int minWords = opts.get("--words") != null ? Integer.parseInt(opts.get("--words")[0]) : 4;
+	int count = parser.files.size() == 0 ? 1 : Integer.parseInt(parser.files.get(0));
+	String randomgen = opts.get("--random") != null ? opts.get("--random")[0] : "/dev/urandom";
 	
 	if (opts.get("--join") != null)
 	    for (final String _ : opts.get("--join"))
-	    {
-		System.arraycopy(separators, 0, separators = new String[separators.length + 1], 0, separators.length - 1);
+	    {	System.arraycopy(separators, 0, separators = new String[separators.length + 1], 0, separators.length - 1);
 		separators[separators.length - 1] = "";
 	    }
 	
 	if (opts.get("--separator") != null)
 	    for (final String separator : opts.get("--separator"))
-	    {
-		System.arraycopy(separators, 0, separators = new String[separators.length + 1], 0, separators.length - 1);
+	    {	System.arraycopy(separators, 0, separators = new String[separators.length + 1], 0, separators.length - 1);
 		separators[separators.length - 1] = separator;
 	    }
 	
 	if (opts.get("--include") != null)
 	    for (final String word : opts.get("--include"))
-	    {
-		System.arraycopy(words, 0, words = new String[words.length + 1], 0, words.length - 1);
+	    {	System.arraycopy(words, 0, words = new String[words.length + 1], 0, words.length - 1);
 		words[words.length - 1] = word;
 	    }
 	
 	if (opts.get("--list") != null)
 	    for (final String list : opts.get("--list"))
-	    {
-		System.arraycopy(wordlists, 0, wordlists = new String[wordlists.length + 1], 0, wordlists.length - 1);
+	    {	System.arraycopy(wordlists, 0, wordlists = new String[wordlists.length + 1], 0, wordlists.length - 1);
 		wordlists[wordlists.length - 1] = list;
 	    }
 	
@@ -171,11 +168,12 @@ public class Correctpony
 	
 	Correctpony.randomgen = new FileInputStream(randomgen);
 	try
-	{
+	{   final String[] passphrases = generatePassphrases(colours, camelcase, separators, words, wordlists, minChars, minWords, count);
+	    for (final String passphrase : passphrases)
+		System.out.println(passphrase);
 	}
 	finally
-	{
-	    Correctpony.randomgen.close();
+	{    Correctpony.randomgen.close();
 	}
     }
     
@@ -242,13 +240,13 @@ public class Correctpony
 	for (int i = 0, n = files.length; i < n; i++)
 	    candidates[i] = "/" + files[i];
 	
-	String[] rc = new String[dicts.length];
+	String[] rc = new String[dictionaries.length];
 	int ptr = 0;
 	
-	for (String dict : dicts)
-	{   dict = "/" + dict;
+	for (String dictionary : dictionaries)
+	{   dictionary = "/" + dictionary;
 	    for (final String candidate : candidates)
-		if (candidate.endsWith(dict))
+		if (candidate.endsWith(dictionary))
 		{
 		    if (ptr == rc.length)
 			System.arraycopy(rc, 0, rc = new String[rc.length << 1], 0, ptr);
@@ -278,7 +276,7 @@ public class Correctpony
 	    {
 		final InputStream is = new FileInputStream(dictionary);
 		byte[] buf;
-		int ptr;
+		int ptr = 0;
 		try
 		{   buf = new byte[is.available()];
 		    if (buf.length == 0)
@@ -291,7 +289,7 @@ public class Correctpony
 				if (n <= 0)
 				    break forever;
 			    }
-			    System.arraycopy(buf, 0, buf = new String[buf.length << 1], 0, ptr);
+			    System.arraycopy(buf, 0, buf = new byte[buf.length << 1], 0, ptr);
 		}	}
 		finally
 		{   try
@@ -327,6 +325,8 @@ public class Correctpony
     {
 	final StringBuilder rc = new StringBuilder();
 	int i = 0;
+	if (colour)
+	    rc.append("\033[01m");
 	for (final String word : words)
 	{
 	    if (i > 0)
@@ -355,11 +355,67 @@ public class Correctpony
      */
     public static int random(int max) throws IOException
     {
-	int rc = Correctpony.read() & 127;
-	rc = (rc << 8) | Correctpony.read();
-	rc = (rc << 8) | Correctpony.read();
-	rc = (rc << 8) | Correctpony.read();
+	int rc = Correctpony.randomgen.read() & 127;
+	rc = (rc << 8) | Correctpony.randomgen.read();
+	rc = (rc << 8) | Correctpony.randomgen.read();
+	rc = (rc << 8) | Correctpony.randomgen.read();
 	return rc % max;
+    }
+    
+    
+    /**
+     * Generate passphrases
+     * 
+     * @param  colours     Include colours
+     * @param  camelcase   Capitalise first letter of each word
+     * @param  separators  Words separators
+     * @param  words       Words that must be included
+     * @param  wordlists   Word lists to use
+     * @param  minChars    Minimum lenght
+     * @param  minWords    Minimum number of words
+     * @param  count       Number of passphrases to generate
+     * 
+     * @throws  IOException  On I/O error
+     */
+    public static String[] generatePassphrases(boolean colours, boolean camelcase, String[] separators, String[] words, String[] wordlists, int minChars, int minWords, int count) throws IOException
+    {
+	String[] dictionaries = getDictionaries();
+	if (wordlists != null)
+	    dictionaries = getFiles(dictionaries, wordlists);
+	final String[] dictionary = getWords(dictionaries);
+	    
+	int joinMinimum = (1 << 31) - 1;
+	for (final String separator : separators)
+	    if (joinMinimum > separator.length())
+		joinMinimum = separator.length();
+	
+	final String[] passphrases = new String[count];
+	for (int i = 0; i < count; i++)
+	{
+	    final ArrayList<String> passphrase = new ArrayList<String>();
+	    int passphraseLength = -joinMinimum;
+	    
+	    minWords -= words.length;
+	    for (final String word : words)
+		minChars -= word.length();
+	    minChars -= passphraseLength * words.length;
+	    
+	    while ((passphraseLength < minChars) || (passphrase.size() < minWords))
+	    {	final String word = dictionary[random(dictionary.length)];
+		passphraseLength += word.length() + joinMinimum;
+		passphrase.add(word);
+	    }
+	    
+	    for (final String word : words)
+	    {	int position = random(passphrase.size() + 1);
+		passphrase.add(position, word);
+	    }
+	    
+	    final String[] passphrase_array = new String[passphrase.size()];
+	    passphrase.toArray(passphrase_array);
+	    passphrases[i] = join(passphrase_array, separators, colours);
+	}
+	return passphrases;
     }
     
     
