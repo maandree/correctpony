@@ -42,7 +42,7 @@ cmd: launcher java jar
 .PHONY:
 launcher: bin/correctpony
 
-bin/correctpony: correctpony.sh
+bin/correctpony: src/correctpony.sh
 	@mkdir -p bin
 	cp "$<" "$@"
 	sed -i 's:^#!/bin/sh$$:#!$(SH_SHEBASH):' "$@"
