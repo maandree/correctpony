@@ -386,8 +386,8 @@ public class Correctpony
 	
 	int joinMinimum = (1 << 31) - 1;
 	for (final String separator : separators)
-	    if (joinMinimum > separator.length())
-		joinMinimum = separator.length();
+	    if (joinMinimum > length(separator))
+		joinMinimum = length(separator);
 	
 	final String[] passphrases = new String[count];
 	for (int i = 0; i < count; i++)
