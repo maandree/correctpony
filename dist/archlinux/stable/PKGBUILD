@@ -2,7 +2,7 @@
 
 pkgname=correctpony
 pkgver=2.0
-pkgrel=2
+pkgrel=1
 pkgdesc="Passphrase generator based on http://xkcd.com/936/"
 arch=('any')
 url="https://github.com/maandree/correctpony"
