@@ -146,7 +146,7 @@ public class Correctpony
 		}
 	    String[] dictionaries = getDictionaries();
 	    if (wordlists.length != 0)
-		dictionaries = getFiles(dictionaries, wordlists);
+		dictionaries = getFiles(wordlists, dictionaries);
 	    final String[] dictionary = getWords(dictionaries);
 	    System.out.println(dictionary.length);
 	    return;
@@ -409,7 +409,7 @@ public class Correctpony
     {
 	String[] dictionaries = getDictionaries();
 	if (wordlists != null)
-	    dictionaries = getFiles(dictionaries, wordlists);
+	    dictionaries = getFiles(wordlists, dictionaries);
 	final String[] dictionary = getWords(dictionaries);
 	
 	int joinMinimum = (1 << 31) - 1;
