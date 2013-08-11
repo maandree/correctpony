@@ -217,6 +217,10 @@ public class Correctpony
 	    time /= 60 * 60 * 24 * 365.2425;
 	    
 	    System.out.println("Trying to crack the passphrase knowing all settings and the dictionaries,");
+	    System.out.println("it would take about " + time / 1000000 + " years at most, making 1 000 000 guesses per seconds.");
+	    System.out.println();
+	    
+	    System.out.println("Trying to crack the passphrase knowing all settings and the dictionaries,");
 	    System.out.println("it would take about " + time / 1000 + " years at most, making 1000 guesses per seconds.");
 	    System.out.println();
 	    
