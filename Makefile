@@ -23,6 +23,7 @@ JAVA_FLAGS = $(JAVADIRS) $(JAVAFLAGS)
 CLASSES = Correctpony
 
 
+
 .PHONY: all
 all: java jar
 
