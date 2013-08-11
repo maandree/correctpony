@@ -11,7 +11,6 @@
 PREFIX = /usr
 BIN = /bin
 DATA = /share
-MISC = $(DATA)/misc
 LICENSES = $(DATA)/licenses
 INFO = $(DATA)/info
 DICT = $(DATA)/dict
@@ -158,7 +157,6 @@ install: install-cmd install-dict install-license install-doc install-shell
 
 .PHONY: install-cmd
 install-cmd: cmd
-	install -Dm644 bin/Correctpony.jar -- "$(DESTDIR)$(PREFIX)$(MISC)/Correctpony.jar"
 	install -Dm755 bin/correctpony -- "$(DESTDIR)$(PREFIX)$(BIN)/correctpony"
 
 .PHONY: install-dict
@@ -198,7 +196,6 @@ install-zsh: zsh
 
 .PHONY: uninstall
 uninstall:
-	-rm -- "$(DESTDIR)$(PREFIX)$(MISC)/Correctpony.jar"
 	-rm -- "$(DESTDIR)$(PREFIX)$(BIN)/correctpony"
 	-rm -- $(foreach D, $(WORDLISTS), "$(DESTDIR)$(PREFIX)$(DICT)/$(D)")
 	-rm -- "$(DESTDIR)$(PREFIX)$(LICENSES)/$(PKGNAME)/COPYING"
