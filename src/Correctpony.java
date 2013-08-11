@@ -66,7 +66,12 @@ public class Correctpony
 	for (final String symbol : new String[] { "[", "]", "(", ")", "|" })
 	    usage = usage.replace(symbol, "\033[02m" + symbol + "\033[22m");
 	usage = "\033[34mcorrectpony\033[00m " + usage.replace("\n", "\n\033[34mcorrectpony\033[00m ");
-	ArgParser parser = new ArgParser("passphrase generator inspired by xkcd 936", usage);
+	ArgParser parser = new ArgParser("passphrase generator inspired by xkcd 936", usage,
+					 "correctpony generates a phrase with real words, making it easy to remember\n" + 
+					 "but hard to brute force. But the strenghten your security you may want to\n" +
+					 "do an entroy check on the phrase, it should be enought to just read the phrase\n" +
+					 "and make sure no close pairs is a common combination in read text. And if you\n" +
+					 "are paranoid do one or two simple modifications to the generated phrase.");
 	
 	parser.add(new ArgParser.Argumentless(           1, "-h", "--help"),       "Print this help information");
 	parser.add(new ArgParser.Argumentless(           0, "--copying"),          "Print copyright information");
