@@ -300,7 +300,7 @@ public class Correctpony
 		}   }
 		for (final String word : (new String(buf, 0, ptr, "UTF-8")).split("\n"))
 		    if (word.length() != 0)
-			unique.add(word.toLowerCase());
+			unique.add(word/*.toLowerCase()*/);
 	    }
 	
 	final String[] rc = new String[unique.size()];
