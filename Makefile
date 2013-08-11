@@ -16,6 +16,10 @@ LICENSES = $(DATA)/licenses
 INFO = $(DATA)/info
 SH_SHEBANG = $(BIN)/sh
 
+RANDOM_FILES = /dev/urandom /dev/random
+DEFAULT_RANDOM = /dev/urandom
+DICT_DIRS = /usr/share/dict:/usr/local/share/dict:~/share/dict
+
 JAVA_OPTIMISE = -O
 
 JAVAC = javac
@@ -23,7 +27,6 @@ JAR = jar
 INSTALLED_PREFIX = /usr
 INSTALLED_LIB = /lib
 INSTALLED_JARS = $(INSTALLED_PREFIX)$(INSTALLED_LIB)
-DICT_DIRS = /usr/share/dict:/usr/local/share/dict:~/share/dict
 
 JAVADIRS = -s "src" -d "bin" -cp "src:$(INSTALLED_JARS)/ArgParser.jar"
 JAVAFLAGS = -Xlint $(JAVA_OPTIMISE)
@@ -62,6 +65,7 @@ bin/%.java: src/%.java
 	@mkdir -p bin
 	cp "$<" "$@"
 	sed -i '/DICT_DIRS/s|/usr/share/dict:/usr/local/share/dict:~/share/dict|$(DICT_DIRS)|' "$@"
+	sed -i 's:"/dev/urandom":"$(DEFAULT_RANDOM)":' "$@"
 
 bin/%.class: bin/%.java
 	$(JAVAC) $(JAVA_FLAGS) "$<"
