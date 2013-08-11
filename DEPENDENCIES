@@ -1,0 +1,22 @@
+RUNTIME:
+
+java-runtime>=6
+argparser-java
+sh
+
+
+MAKE:
+
+make
+sed
+coreutils
+java-environment>=6
+argparser-java
+
+
+OPTIONAL MAKE:
+
+auto-auto-complete: for shell auto-completion
+texinfo: for info manual
+gzip: for info manual compression
+
