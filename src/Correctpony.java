@@ -345,6 +345,7 @@ public class Correctpony
 	final HashSet<String> unique = new HashSet<String>();
 	for (final String dictionary : dictionaries)
 	    {
+		/* TODO  implement with C to gain performance */
 		final InputStream is = new FileInputStream(dictionary);
 		byte[] buf;
 		int ptr = 0;
