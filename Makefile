@@ -7,6 +7,15 @@
 # 
 # [GNU All Permissive License]
 
+
+PREFIX = /usr
+BIN = /bin
+DATA = /share
+MISC = $(DATA)/misc
+LICENSES = $(DATA)/licenses
+INFO = $(DATA)/info
+SH_SHEBANG = $(BIN)/sh
+
 JAVA_OPTIMISE = -O
 
 JAVAC = javac
@@ -25,7 +34,19 @@ CLASSES = Correctpony
 
 
 .PHONY: all
-all: java jar
+all: cmd
+
+.PHONY: cmd
+cmd: launcher java jar
+
+.PHONY:
+launcher: bin/correctpony
+
+bin/correctpony: correctpony.sh
+	@mkdir -p bin
+	cp "$<" "$@"
+	sed -i 's:^#!/bin/sh$$:#!$(SH_SHEBASH):' "$@"
+	sed -i 's|bin/|$(PREFIX)$(MISC)/|' "$@"
 
 .PHONY: java
 java: $(foreach CLASS, $(CLASSES), bin/$(CLASS).class)
@@ -41,7 +62,7 @@ bin/%.class: bin/%.java
 .PHONY: jar
 jar: bin/Correctpony.jar
 
-bin/Correctpony.jar: java
+bin/Correctpony.jar: java bin/META-INF/MANIFEST.MF
 	cd bin; $(JAR) cfm Correctpony.jar META-INF/MANIFEST.MF $(foreach CLASS, $(CLASSES), $(CLASS).class)
 
 
