@@ -60,7 +60,7 @@ public class Correctpony
      */
     public static void main(String... args) throws IOException
     {
-	String usage = "[-p] [-r DEVICE] [-j...] [-s SEP...] [-u] [-c COUNT] [-w COUNT] [-i WORD...] [-l LIST...] [COUNT]\n"
+	String usage = "[-p] [-r DEVICE] [-j...] [-s SEP...] [-u] [-c COUNT] [-w COUNT] [-i WORD...] [-l LIST...] [COUNT | -z]\n"
 	             + "-h | --copying | --warranty | --version | --wordlists [--full] | --wordcount [-l LIST...]";
 	for (final String symbol : new String[] { "[", "]", "(", ")", "|" })
 	    usage = usage.replace(symbol, "\033[02m" + symbol + "\033[22m");
@@ -83,11 +83,12 @@ public class Correctpony
 	parser.add(new ArgParser.Argumented("COUNT",     1, "-w", "--words"),      "Least number of words");
 	parser.add(new ArgParser.Argumented("WORD",      1, "-i", "--include"),    "Word that must be included");
 	parser.add(new ArgParser.Argumented("WORDLIST",  1, "-l", "--list"),       "Word list to use");
+	parser.add(new ArgParser.Argumentless(           1, "-z", "--security"),   "Show stats and security estimates");
 	
 	parser.parse(args);
 	final Map<String, String[]> opts = parser.opts;
 	
-	parser.testFiles(0, 1, 1);
+	parser.testFiles(0, opts.get("--security") != null ? 0 : 1, 1);
 	
 	
 	if (opts.get("--help") != null)
@@ -193,6 +194,38 @@ public class Correctpony
 	    wordlists = null;
 	
 	
+	if (opts.get("--security") != null)
+	{
+	    String[] dictionaries = getDictionaries();
+	    if (wordlists != null)
+		dictionaries = getFiles(wordlists, dictionaries);
+	    final String[] dictionary = getWords(dictionaries);
+	    final int wordcount = dictionary.length;
+	    final int procent = wordcount / 5000;
+	    
+	    System.out.println();
+	    System.out.println("You have a total of " + wordcount + " words in all your selected word lists,");
+	    System.out.println("The English language contains about 500000 words. That is c:a " + procent + " %");
+	    System.out.println();
+	    
+	    double time = (double)wordcount;
+	    int minwords = Math.max(0, minWords - words.length);
+	    time = Math.pow(time, minwords);
+	    for (int i = 1; i <= words.length; i++)
+		time *= minwords + i;
+	    time *= Math.pow(separators.length, minwords + words.length - 1);
+	    time /= 60 * 60 * 24 * 365.2425;
+	    
+	    System.out.println("Trying to crack the passphrase knowing all settings and the dictionaries,");
+	    System.out.println("it would take about " + time / 1000 + " years at most, making 1000 guesses per seconds");
+	    System.out.println();
+	    
+	    System.out.println("Trying to crack the passphrase knowing all settings and the dictionaries,");
+	    System.out.println("it would take about " + time * 5 + " years at most, making 1 guess every fifth second.");
+	    System.out.println();
+	    
+	    return;
+	}
 	
 	Correctpony.randomgen = new FileInputStream(randomgen);
 	try
