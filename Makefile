@@ -14,6 +14,7 @@ DATA = /share
 MISC = $(DATA)/misc
 LICENSES = $(DATA)/licenses
 INFO = $(DATA)/info
+DICT = $(DATA)/dict
 SH_SHEBANG = $(BIN)/sh
 COMMAND = correctpony
 PKGNAME = correctpony
@@ -36,8 +37,7 @@ JAVA_FLAGS = $(JAVADIRS) $(JAVAFLAGS)
 
 CLASSES = Correctpony
 
-BOOK = correctpony
-BOOKDIR = info
+WORDLISTS = $(shell ls -1 wordlists | sed -e 's:.dict$$::')
 
 
 
@@ -49,51 +49,51 @@ all: cmd shell doc
 doc: info
 
 .PHONY: info
-info: $(BOOK).info.gz
-%.info: $(BOOKDIR)/%.texinfo
+info: correctpony.info.gz
+%.info: info/%.texinfo
 	$(MAKEINFO) "$<"
 %.info.gz: %.info
 	gzip -9c < "$<" > "$@"
 
 
 .PHONY: pdf
-pdf: $(BOOK).pdf
-%.pdf: $(BOOKDIR)/%.texinfo
+pdf: correctpony.pdf
+%.pdf: info/%.texinfo
 	texi2pdf "$<"
 
-pdf.gz: $(BOOK).pdf.gz
+pdf.gz: correctpony.pdf.gz
 %.pdf.gz: %.pdf
 	gzip -9c < "$<" > "$@"
 
-pdf.xz: $(BOOK).pdf.xz
+pdf.xz: $correctpony.pdf.xz
 %.pdf.xz: %.pdf
 	xz -e9 < "$<" > "$@"
 
 
 .PHONY: dvi
-dvi: $(BOOK).dvi
-%.dvi: $(BOOKDIR)/%.texinfo
+dvi: correctpony.dvi
+%.dvi: info/%.texinfo
 	$(TEXI2DVI) "$<"
 
-dvi.gz: $(BOOK).dvi.gz
+dvi.gz: correctpony.dvi.gz
 %.dvi.gz: %.dvi
 	gzip -9c < "$<" > "$@"
 
-dvi.xz: $(BOOK).dvi.xz
+dvi.xz: correctpony.dvi.xz
 %.dvi.xz: %.dvi
 	xz -e9 < "$<" > "$@"
 
 
 .PHONY: ps
-ps: $(BOOK).ps
-%.ps: $(BOOKDIR)/%.texinfo
+ps: correctpony.ps
+%.ps: info/%.texinfo
 	texi2pdf --ps "$<"
 
-ps.gz: $(BOOK).ps.gz
+ps.gz: correctpony.ps.gz
 %.ps.gz: %.dvi
 	gzip -9c < "$<" > "$@"
 
-ps.xz: $(BOOK).ps.xz
+ps.xz: correctpony.ps.xz
 %.ps.xz: %.dvi
 	xz -e9 < "$<" > "$@"
 
@@ -153,6 +153,64 @@ correctpony.auto-completion.configured: correctpony.auto-completion
 
 correctpony.%sh-completion: correctpony.auto-completion.configured
 	auto-auto-complete $*sh --source "$<" --output "$@"
+
+
+
+.PHONY: install
+install: install-cmd install-dict install-license install-doc install-shell
+
+.PHONY: install-cmd
+install-cmd: cmd
+	install -Dm644 bin/Correctpony.jar -- "$(DESTDIR)$(PREFIX)$(MISC)/Correctpony.jar"
+	install -Dm755 bin/correctpony -- "$(DESTDIR)$(PREFIX)$(BIN)/correctpony"
+
+.PHONY: install-dict
+install-dict:
+	install -d -- "$(DESTDIR)$(PREFIX)$(DICT)"
+	for D in $(WORDLISTS); do \
+	    install -m644 "wordlists/$$D.dict" -- "$(DESTDIR)$(PREFIX)$(DICT)/$$D"; done
+
+.PHONY: install-license
+install-license:
+	install -d -- "$(DESTDIR)$(PREFIX)$(LICENSES)/$(PKGNAME)"
+	install -m644 COPYING LICENSE -- "$(DESTDIR)$(PREFIX)$(LICENSES)/$(PKGNAME)"
+
+.PHONY: install-doc
+install-doc: install-info
+
+.PHONY: install-info
+install-info: info
+	install -Dm644 correctpony.info.gz -- "$(DESTDIR)$(PREFIX)$(INFO)/$(PKGNAME).info.gz"
+
+.PHONY: install-shell
+install-shell: install-bash install-fish install-zsh
+
+.PHONY: install-bash
+install-bash: bash
+	install -Dm644 correctpony.bash-completion -- "$(DESTDIR)$(PREFIX)$(DATA)/bash-completion/completions/$(COMMAND)"
+
+.PHONY: install-fish
+install-fish: fish
+	install -Dm644 correctpony.fish-completion -- "$(DESTDIR)$(PREFIX)$(DATA)/fish/completions/$(COMMAND).fish"
+
+.PHONY: install-zsh
+install-zsh: zsh
+	install -Dm644 correctpony.zsh-completion -- "$(DESTDIR)$(PREFIX)$(DATA)/zsh/site-functions/_$(COMMAND)"
+
+
+
+.PHONY: uninstall
+uninstall:
+	-rm -- "$(DESTDIR)$(PREFIX)$(MISC)/Correctpony.jar"
+	-rm -- "$(DESTDIR)$(PREFIX)$(BIN)/correctpony"
+	-rm -- $(foreach D, $(WORDLISTS), "$(DESTDIR)$(PREFIX)$(DICT)/$(D)")
+	-rm -- "$(DESTDIR)$(PREFIX)$(LICENSES)/$(PKGNAME)/COPYING"
+	-rm -- "$(DESTDIR)$(PREFIX)$(LICENSES)/$(PKGNAME)/LICENSE"
+	-rmdir -- "$(DESTDIR)$(PREFIX)$(LICENSES)/$(PKGNAME)"
+	-rm -- "$(DESTDIR)$(PREFIX)$(INFO)/$(PKGNAME).info.gz"
+	-rm -- "$(DESTDIR)$(PREFIX)$(DATA)/bash-completion/completions/$(COMMAND)"
+	-rm -- "$(DESTDIR)$(PREFIX)$(DATA)/zsh/site-functions/_$(COMMAND)"
+	-rm -- "$(DESTDIR)$(PREFIX)$(DATA)/fish/completions/$(COMMAND).fish"
 
 
 
