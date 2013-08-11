@@ -152,7 +152,9 @@ public class Correctpony
 		    wordlists[wordlists.length - 1] = list;
 		}
 	    String[] dictionaries = getDictionaries();
-	    if (wordlists.length != 0)
+	    if (wordlists.length == 0)
+		wordlists = DEFAULT_DICTIONARIES;
+	    if (wordlists.length == null)
 		dictionaries = getFiles(wordlists, dictionaries);
 	    final String[] dictionary = getWords(dictionaries);
 	    System.out.println(dictionary.length);
@@ -197,7 +199,7 @@ public class Correctpony
 	if (separators.length == 0)
 	    separators = DEFAULT_SEPARATORS;
 	if (wordlists.length == 0)
-	    wordlists = null;
+	    wordlists = DEFAULT_DICTIONARIES;
 	
 	
 	if (opts.get("--security") != null)
