@@ -158,5 +158,5 @@ correctpony.%sh-completion: correctpony.auto-completion.configured
 
 .PHONY: clean
 clean:
-	-rm -rf -- bin *.configured *.*sh-completion
+	-rm -rf -- bin *.configured *.*sh-completion *.{info,pdf,ps,dvi,gz,xz} *.{aux,cp,cps,fn,ky,log,pg,ps,toc,tp,vr}
 

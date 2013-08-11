@@ -1,5 +1,5 @@
 (correctpony
-	(default  (arg COUNT)  (files -0)  (desc 'Number of passphrases to generate'))
+	(default  (arg COUNT)  (suggest default)  (files -0)  (desc 'Number of passphrases to generate'))
 	
 	(multiple argumentless
 		((options -h --help)       (complete --help)       (desc 'Print help information'))
@@ -24,10 +24,10 @@
 		((options -l --list)       (complete --list)        (arg WORDLIST)   (suggest list)  (files -0)  (desc 'Word list to use'))
 	)
 	
-	(suggestion random (verbatim /dev/urandom /dev/random)
-	)
-	
-	(suggestion list (exec correctpony --wordlists)
+	(multiple suggestion
+		(random  (verbatim  /dev/urandom /dev/random))
+		(list    (exec      correctpony --wordlists))
+		(default (verbatim  1))
 	)
 )
 
