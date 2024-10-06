@@ -1,7 +1,7 @@
 /**
  * correctpony — a passphrase generator inspired by xkcd 936
  * 
- * Copyright © 2012, 2013  Mattias Andrée (maandree@member.fsf.org)
+ * Copyright © 2012, 2013  Mattias Andrée (m@maandree.se)
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -25,7 +25,7 @@ import java.util.*;
 /**
  * Mane class for correctpony
  * 
- * Mattias Andrée, <a href="mailto:maandree@member.fsf.org">maandree@member.fsf.org</a>
+ * Mattias Andrée, <a href="mailto:m@maandree.se">m@maandree.se</a>
  */
 public class Correctpony
 {
@@ -109,7 +109,7 @@ public class Correctpony
 	{
 	    System.out.println("correctpony — a passphrase generator inspired by xkcd 936\n");
 	    System.out.println("\n");
-	    System.out.println("Copyright © 2012, 2013  Mattias Andrée (maandree@member.fsf.org)\n");
+	    System.out.println("Copyright © 2012, 2013  Mattias Andrée (m@maandree.se)\n");
 	    System.out.println("\n");
 	    System.out.println("This program is free software: you can redistribute it and/or modify\n");
 	    System.out.println("it under the terms of the GNU Affero General Public License as published by\n");
